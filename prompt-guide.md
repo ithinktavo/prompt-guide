@@ -1,231 +1,199 @@
-# Comprehensive Prompt Guide
+# Prompt Engineering — Quick Reference
 
-## Table of Contents
-1. [Basic Prompt Structure](#basic-prompt-structure)
-2. [Effective Prompting Techniques](#effective-prompting-techniques)
-3. [Common Prompt Patterns](#common-prompt-patterns)
-4. [Domain-Specific Prompts](#domain-specific-prompts)
-5. [Advanced Prompting Strategies](#advanced-prompting-strategies)
-6. [Troubleshooting Common Issues](#troubleshooting-common-issues)
+> **What this is**: A one-page reference card for writing effective prompts in GitHub Copilot Chat. Use this alongside the [Workbook](workbook.md) for hands-on practice or the [Topic Outline](prompt-guide-topics.md) for the full curriculum.
 
-## Basic Prompt Structure
+---
 
-### Core Components
-- **Context**: Background information the AI needs
-- **Task**: What you want the AI to do
-- **Constraints**: Rules, limitations, or specific requirements
-- **Format**: Desired output structure
-- **Examples**: Sample inputs/outputs (few-shot learning)
+## The 6-Step Prompt Formula
 
-### Template
+| Step | What to Do | Example |
+|------|-----------|---------|
+| **1. Goal** | Lead with what you want back — one clear sentence | "Fix the N+1 query in the OrderRepository" |
+| **2. Context** | Project, stack, file, what's been tried | "Spring Boot 3.2, PostgreSQL, the `/orders` endpoint" |
+| **3. Constraints** | Format, length, audience, exclusions | "Don't change the API contract, keep backward compat" |
+| **4. Examples** | Show input → expected output (few-shot) | "Like this: `feat(api): add pagination to /orders`" |
+| **5. Step-by-step** | Ask for reasoning on complex tasks | "Think step by step before suggesting a fix" |
+| **6. Refine** | Iterate — treat the first response as a draft | "Make it more concise. Add error handling for nulls." |
+
+---
+
+## Prompt Patterns
+
+### Role-Based
 ```
-[Context/Background]
-[Task Description]
-[Constraints/Requirements]
-[Output Format]
-[Examples (if needed)]
+You are a [role]. [Task with role-specific context].
 ```
 
-## Effective Prompting Techniques
-
-### 1. Be Specific and Clear
-- Use precise language
-- Avoid ambiguity
-- Specify exact requirements
-
-### 2. Provide Context
-- Give relevant background information
-- Explain the purpose/goal
-- Mention constraints or limitations
-
-### 3. Use Examples
-- Show input-output pairs
-- Demonstrate desired format
-- Include edge cases
-
-### 4. Break Down Complex Tasks
-- Use step-by-step instructions
-- Number sequential steps
-- Define subtasks clearly
-
-## Common Prompt Patterns
-
-### 1. Role-Based Prompting
+### Chain of Thought
 ```
-You are a [role/profession]. 
-[Task description with role-specific context]
+Think step by step:
+1. Read the code and explain what each section does.
+2. Trace execution with the failing input.
+3. Identify where actual behavior diverges from expected.
+4. Suggest a minimal fix.
 ```
 
-### 2. Chain of Thought
+### Few-Shot (Teaching by Example)
 ```
-Think step by step to solve this problem:
-1. [First step]
-2. [Second step]
-3. [Final step]
+I want [output type] in this format:
+
+Example 1:
+Input: [situation]
+Output: [desired output]
+
+Example 2:
+Input: [situation]
+Output: [desired output]
+
+Now generate for:
+Input: [new situation]
 ```
 
-### 3. Template-Based
+### Multi-Persona
 ```
-Fill in this template:
-[Template structure]
-Input: [user input]
-Output: [desired format]
-```
-
-### 4. Comparative Analysis
-```
-Compare [A] and [B] based on:
-- Criterion 1
-- Criterion 2
-- Criterion 3
+Analyze [topic] from three perspectives:
+1. As a [persona 1], evaluate [dimension 1].
+2. As a [persona 2], evaluate [dimension 2].
+3. As a [persona 3], evaluate [dimension 3].
+Synthesize and recommend.
 ```
 
-## Domain-Specific Prompts
-
-### Programming/Code
+### Constraint-Based
 ```
-Write [language] code to [task].
-Requirements:
-- Use [specific libraries/frameworks]
-- Follow [coding standards]
-- Include [error handling/documentation]
-```
-
-### Writing/Content
-```
-Create a [content type] about [topic].
-Target audience: [description]
-Tone: [formal/casual/professional]
-Length: [word count]
-Key points to include: [list]
-```
-
-### Data Analysis
-```
-Analyze this [data type] to [goal].
-Steps:
-1. [Data preparation]
-2. [Analysis method]
-3. [Visualization requirements]
-4. [Insights to extract]
-```
-
-### Problem Solving
-```
-Help me solve [problem type].
-Context: [background information]
-Constraints: [limitations]
-Available resources: [tools/data]
-Desired outcome: [specific result]
-```
-
-## Advanced Prompting Strategies
-
-### 1. Iterative Refinement
-- Start with a basic prompt
-- Review the output
-- Refine the prompt based on results
-- Repeat until satisfactory
-
-### 2. Multi-Persona Approach
-```
-As a [persona 1], analyze [topic].
-Then, as a [persona 2], critique the analysis.
-Finally, synthesize both perspectives.
-```
-
-### 3. Constraint-Based Generation
-```
-Generate [content] with these constraints:
-- Must include [specific elements]
-- Cannot use [forbidden terms]
-- Must follow [style guidelines]
-- Limited to [word count/length]
-```
-
-### 4. Meta-Prompting
-```
-Create a prompt that will [achieve goal].
-The prompt should:
-- Be clear and specific
-- Include relevant context
-- Provide examples
-- Set appropriate constraints
-```
-
-## Troubleshooting Common Issues
-
-### Problem: Vague or Incomplete Responses
-**Solution**: Add more specific details and constraints
-```
-Instead of: "Write about marketing"
-Use: "Write a 500-word blog post about digital marketing trends for small businesses, focusing on cost-effective strategies under $1000/month."
-```
-
-### Problem: Incorrect Format
-**Solution**: Explicitly specify output format
-```
-Provide the answer in JSON format with these keys:
-- "title": string
-- "description": string
-- "steps": array of strings
-```
-
-### Problem: Off-Topic Responses
-**Solution**: Strengthen context and constraints
-```
-Stay focused on [specific topic]. Do not discuss [related but irrelevant topics]. Your response should only address [specific question].
-```
-
-### Problem: Too Technical or Too Simple
-**Solution**: Specify target audience level
-```
-Explain [topic] for [beginner/intermediate/expert] level audience. Use [simple/technical] language and provide [basic/detailed] examples.
-```
-
-## Best Practices Summary
-
-1. **Start Clear**: Begin with a clear, specific task description
-2. **Provide Context**: Give necessary background information
-3. **Set Constraints**: Define boundaries and requirements
-4. **Use Examples**: Show desired format and style
-5. **Iterate**: Refine prompts based on output quality
-6. **Test**: Validate prompts with different scenarios
-7. **Document**: Keep successful prompts for reuse
-
-## Quick Reference
-
-### Simple Tasks
-```
-[Task] for [topic] with [constraints].
-```
-
-### Complex Tasks
-```
-Context: [background]
-Task: [detailed description]
-Requirements: [specific constraints]
-Format: [output structure]
-Examples: [sample I/O]
-```
-
-### Code Generation
-```
-Write [language] code to [functionality].
-Include: [features/libraries]
-Follow: [standards/patterns]
-Test: [verification method]
-```
-
-### Content Creation
-```
-Create [content type] about [topic].
-Audience: [target demographic]
-Tone: [voice/style]
-Length: [word/character count]
-Include: [key elements]
+Write [content] with these constraints:
+- Structure: [exact sections]
+- Length: [per-section limits]
+- Must include: [specific elements]
+- Must NOT include: [exclusions]
 ```
 
 ---
 
-*This guide serves as a reference for crafting effective prompts across various use cases. Adjust and customize these patterns based on your specific needs and the AI assistant you're using.*
+## GitHub Copilot Chat — Key Features
+
+### Context References
+| Reference | What It Does | When to Use |
+|-----------|-------------|-------------|
+| `@workspace` | Gives Copilot your full repo context | Codebase-wide questions, architecture, finding files |
+| `#file:<path>` | References a specific file | Reviewing, explaining, or modifying a known file |
+| `#selection` | References highlighted code in editor | Explaining, fixing, or testing selected code |
+
+### Slash Commands
+| Command | What It Does | Pro Tip |
+|---------|-------------|---------|
+| `/explain` | Explains selected code | Add "focus on edge cases" or "for a junior dev" |
+| `/fix` | Suggests a fix | Add "fix only [specific issue], explain root cause" |
+| `/tests` | Generates unit tests | Add framework name + specific scenarios to cover |
+| `/doc` | Generates doc comments | Add format (JSDoc/Javadoc) + what to skip |
+
+### Custom Instructions
+Store team-wide instructions in `.github/copilot-instructions.md` — Copilot includes them in every chat automatically.
+
+---
+
+## Reusable Template Structure
+
+```
+GOAL: [What you want — one sentence]
+CONTEXT:
+- Project: [name, what it does]
+- Stack: [languages, frameworks, versions]
+- Current state: [what's happening now]
+- Already tried: [what didn't work]
+CONSTRAINTS:
+- [Constraint 1]
+- [Constraint 2]
+OUTPUT FORMAT: [How the response should be structured]
+```
+
+---
+
+## Common Templates
+
+### Bug Fix
+```
+GOAL: [One-sentence bug description]
+CONTEXT: [Language, framework, file, what the code should do]
+SYMPTOM: [Exact error message or unexpected behavior]
+EXPECTED: [What should happen instead]
+ALREADY TRIED: [Previous attempts]
+CONSTRAINTS: [What the fix must not change]
+OUTPUT: Root-cause analysis, then minimal code fix.
+```
+
+### Code Generation
+```
+GOAL: [What the code should do]
+LANGUAGE/FRAMEWORK: [e.g., Python 3.12 / FastAPI]
+INPUTS: [Parameters it receives]
+OUTPUTS: [What it returns]
+CONSTRAINTS: [Performance, standards, libraries]
+OUTPUT: Working code with inline comments.
+```
+
+### Code Review
+```
+GOAL: Review for [quality / performance / security]
+CODE: [Use #file or #selection reference]
+FOCUS AREAS: [Specific concerns]
+OUTPUT: Issues by severity (critical → minor) with fixes.
+```
+
+### Documentation
+```
+GOAL: Document [concept / function / architecture]
+AUDIENCE: [Junior dev / senior dev / non-technical]
+FORMAT: [Bullet list / paragraph / README / JSDoc]
+LENGTH: [Approximate scope]
+OUTPUT: Clear explanation the audience can follow.
+```
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| Vague response | Add more constraints and context |
+| Wrong format | Specify exact output structure with an example |
+| Off-topic | Add "Stay focused on X. Do not discuss Y." |
+| Too long/short | Specify word count or section count |
+| Ignores your code | Use `#file` or `#selection` instead of pasting |
+| Inconsistent style | Set up `.github/copilot-instructions.md` |
+
+---
+
+## Iterative Refinement Phrases
+
+Use these follow-ups to improve the first response:
+
+- *"Make this more concise — cut it to half the length."*
+- *"Add error handling for the case where X is null."*
+- *"Rewrite this for a non-technical audience."*
+- *"This is close but [specific issue]. Fix only that part."*
+- *"Show only the updated function — don't repeat the explanation."*
+- *"Add a unit test for the edge case where [scenario]."*
+
+---
+
+## File Organization
+
+```
+your-repo/
+├── .github/
+│   └── copilot-instructions.md    ← Team-wide Copilot settings
+├── prompts/
+│   ├── meta-prompt.md             ← Prompt that generates prompts
+│   ├── templates/
+│   │   ├── bug-fix.md
+│   │   ├── code-gen.md
+│   │   ├── code-review.md
+│   │   └── documentation.md
+│   └── client-[project]/          ← Client-specific templates
+│       ├── unit-tests.md
+│       └── api-scaffold.md
+```
+
+---
+
+*Keep it simple. A good prompt is just a clear instruction with enough context for the AI to do its job.*

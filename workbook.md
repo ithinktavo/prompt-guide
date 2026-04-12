@@ -1,10 +1,10 @@
 # Prompt Engineering — Complete Hands-On Workbook
 
-> **What you'll do**: Work through 28 hands-on exercises that take you from writing your first good prompt to building reusable templates, constructing a meta-prompt from scratch, mastering advanced strategies, and leveraging tool-specific features in GitHub Copilot and Windsurf.
+> **What you'll do**: Work through 31 hands-on exercises that take you from writing your first good prompt to building reusable templates, constructing a meta-prompt from scratch, mastering advanced strategies, using GitHub Copilot effectively, and automating real client work.
 >
-> **Prerequisites**: Access to **GitHub Copilot Chat** or **Windsurf (Cascade)**. No prior prompt-engineering experience required.
+> **Prerequisites**: Access to **GitHub Copilot Chat** (in VS Code or JetBrains). No prior prompt-engineering experience required.
 >
-> **Time**: ~2–3 hours (work at your own pace — each module is self-contained)
+> **Time**: ~3 hours (work at your own pace — each module is self-contained)
 
 ---
 
@@ -16,14 +16,15 @@
 | **2 — Reusable Templates** | Build fill-in-the-blank templates for common tasks | 6–10 | ~25 min |
 | **3 — Build Your Own Meta-Prompt** | Construct a "prompt that generates prompts" | 11–20 | ~35 min |
 | **4 — Advanced Strategies** | Iterative refinement, multi-persona, constraint-based | 21–23 | ~20 min |
-| **5 — Tool-Specific Features** | Copilot and Windsurf power features | 24–26 | ~15 min |
-| **6 — Putting It All Together** | End-to-end challenge and team prompt library | 27–28 | ~15 min |
+| **5 — GitHub Copilot Power Features** | Context references, slash commands, custom instructions | 24–26 | ~20 min |
+| **6 — Automating Client Work** | Identify tasks, build client prompts, test end-to-end | 27–29 | ~20 min |
+| **7 — Putting It All Together** | End-to-end challenge and team prompt library | 30–31 | ~15 min |
 
 ### How Each Exercise Works
 
 - **Concept** — a short explanation of the technique and why it matters.
 - **Bad → Good** — a side-by-side comparison so you can see the difference (where applicable).
-- **Your Turn** — a hands-on prompt you'll run in your AI tool.
+- **Your Turn** — a hands-on prompt you'll run in GitHub Copilot Chat.
 - **Challenge** — an optional stretch task to deepen your understanding.
 
 ---
@@ -532,7 +533,7 @@ Every good prompt starts by telling the AI **who it is** and **what it should do
 
 ### What to do
 
-Open GitHub Copilot Chat or Windsurf Chat and paste this prompt:
+Open GitHub Copilot Chat and paste this prompt:
 
 ```
 I'm building a reusable "meta-prompt" — a set of instructions I can paste into
@@ -816,7 +817,7 @@ The only way to know if your meta-prompt works is to **use it**. This exercise h
 
 ### What to do
 
-1. **Open a new chat** in GitHub Copilot Chat or Windsurf Chat.
+1. **Open a new chat** in GitHub Copilot Chat.
 2. **Copy the entire contents** of `my-meta-prompt.md`.
 3. **Paste it** into the chat and press Enter.
 4. The AI should begin by asking you Round 1 questions. **Answer them** using a real problem from your current work (or use a made-up scenario).
@@ -890,18 +891,11 @@ prompts/
 ```
 
 **Option B — GitHub Copilot custom instructions:**
-If your team uses GitHub Copilot, you can place shared instructions in:
+Place shared instructions in your repo:
 ```
 .github/copilot-instructions.md
 ```
-Copilot will automatically include these instructions in every chat.
-
-**Option C — Windsurf Workflows:**
-If your team uses Windsurf, you can save the meta-prompt as a workflow:
-```
-.windsurf/workflows/generate-prompt.md
-```
-Then anyone on the team can invoke it with `/generate-prompt` in Windsurf Chat.
+Copilot will automatically include these instructions in every chat. You can reference the meta-prompt here or link to it.
 
 ### Commit it
 ```bash
@@ -1078,21 +1072,21 @@ Write a constraint set so tight that two different AI tools produce nearly ident
 
 ---
 
-# Module 5 — Tool-Specific Power Features
+# Module 5 — GitHub Copilot Power Features
 
-> These exercises teach you how to get more out of GitHub Copilot Chat and Windsurf (Cascade) specifically.
+> These exercises teach you how to get the most out of GitHub Copilot Chat — the tool your team uses daily.
 
 ---
 
-## Exercise 24 — GitHub Copilot Chat: Context References
+## Exercise 24 — Context References: `@workspace`, `#file`, `#selection`
 
 ### Concept
 Copilot Chat lets you inject context automatically using special references:
-- **`@workspace`** — gives Copilot access to your entire repository
+- **`@workspace`** — gives Copilot access to your entire repository structure
 - **`#file:<filename>`** — references a specific file
 - **`#selection`** — references the code you have highlighted in the editor
 
-These are far more effective than pasting code into the chat manually.
+These are far more effective than pasting code into the chat manually. They keep the chat clean, provide accurate context, and update automatically if the file changes.
 
 ### Your Turn
 
@@ -1119,109 +1113,275 @@ relevant files and explain the flow step by step.
 them with the current version and the recommended version.
 ```
 
+5. Combine references with a template you built in Module 2:
+
+```
+#file:src/services/orderService.ts
+
+GOAL: Review this file for error handling issues.
+CONTEXT: This is a microservice that processes customer orders.
+FOCUS AREAS: Missing try/catch blocks, unhandled promise rejections,
+  generic catch blocks that swallow errors.
+OUTPUT FORMAT: List issues by severity (critical → minor) with line
+  numbers and suggested fixes.
+```
+
 ### Key takeaway
-Always use context references instead of pasting code. They keep the chat clean, provide accurate context, and update automatically if the file changes.
+Always use context references instead of pasting code. Combine them with your templates for powerful, context-aware prompts.
 
 ---
 
-## Exercise 25 — Windsurf (Cascade): Codebase-Aware Prompting
+## Exercise 25 — Slash Commands: Built-In Prompt Shortcuts
 
 ### Concept
-Windsurf's Cascade can read files, search your codebase, and make edits directly. This means your prompts can reference files by path and ask Cascade to take action — not just answer questions.
+Copilot Chat has built-in slash commands that trigger specialized behaviors. These are shortcuts — each one is essentially a well-crafted prompt that GitHub has built in for you:
+
+| Command | What It Does |
+|---------|-------------|
+| `/explain` | Explains the selected code |
+| `/fix` | Suggests a fix for problems in the selected code |
+| `/tests` | Generates unit tests for the selected code |
+| `/doc` | Generates documentation comments |
+
+You can combine these with your own instructions to get better results.
 
 ### Your Turn
 
-1. In Windsurf Chat, ask Cascade to explore your codebase:
+1. **Select a function** in your editor, then try each slash command:
 
 ```
-Read the project structure and give me a brief summary of what this project
-does, the main technologies used, and the entry point file.
+/explain — focus on what this function assumes about its inputs and what
+happens when those assumptions are violated.
 ```
 
-2. Ask it to find something specific:
-
 ```
-Find all the places in this project where we handle errors or exceptions.
-List each file and line number. Are we consistent in our error-handling
-approach?
+/fix — there's a potential null reference on line [X]. Fix only that issue
+and explain the root cause.
 ```
 
-3. Ask it to make an edit (Cascade will propose the change for your approval):
+```
+/tests — use [your test framework, e.g., Jest/pytest/JUnit]. Cover:
+1. Happy path with valid input
+2. Edge case with empty input
+3. Error case with invalid input
+Write each test with a descriptive name that explains the scenario.
+```
 
 ```
-In [filename], the function [function name] doesn't handle the case where
-[input] is null. Add a null check that throws a descriptive error. Don't
-change anything else.
+/doc — write JSDoc/Javadoc for this function. Include @param, @returns,
+@throws, and a one-line description. Skip obvious parameters.
 ```
 
-4. Use Cascade's file context to build a prompt:
+2. Notice that adding instructions **after** the slash command improves the output significantly compared to using the slash command alone.
+
+### Key takeaway
+Slash commands are a starting point, not the final prompt. Always add context and constraints after the command to shape the output.
+
+---
+
+## Exercise 26 — Custom Instructions: `.github/copilot-instructions.md`
+
+### Concept
+You can create a `.github/copilot-instructions.md` file in your repo that Copilot automatically includes in **every** chat conversation. This is where you encode your team's standards so nobody has to remember to include them manually.
+
+### Your Turn
+
+1. Paste this into Copilot Chat:
 
 ```
-Read @[filename] and generate a complete set of unit tests for the exported
-functions. Use [test framework]. Cover happy paths, edge cases, and error
-conditions.
+Write a `.github/copilot-instructions.md` file for a team that works with
+[YOUR TECH STACK — e.g., TypeScript, React, Node.js, PostgreSQL]. It should
+tell Copilot to:
+
+- Always follow [YOUR CODING STANDARDS — e.g., Airbnb style guide]
+- Use [YOUR PREFERRED PATTERNS — e.g., repository pattern, dependency injection]
+- Write tests using [YOUR TEST FRAMEWORK — e.g., Jest, pytest, JUnit]
+- Format code according to [YOUR FORMATTER/LINTER — e.g., Prettier, ESLint]
+- Never suggest [THINGS TO AVOID — e.g., any, console.log in production code]
+- When generating code, always include error handling for [COMMON CASES]
+- Use [YOUR PROJECT'S NAMING CONVENTIONS — e.g., camelCase for variables,
+  PascalCase for components]
+
+Keep it under 30 lines. Make each instruction direct and specific.
+Output the file content only.
+```
+
+2. Fill in the placeholders with your real team info before sending.
+
+3. Review the output, then create the file:
+
+```bash
+mkdir -p .github
+# paste the content into .github/copilot-instructions.md
+```
+
+4. **Test it**: Open a new Copilot Chat and ask it to write some code. Check that the generated code follows the instructions you just set.
+
+### Key takeaway
+Custom instructions are the highest-leverage Copilot feature for teams. Set them once, and every team member gets consistent, standards-compliant suggestions automatically.
+
+### Challenge
+Compare the output of the same prompt **before** and **after** adding custom instructions. Note the differences in code style, patterns, and conventions.
+
+---
+
+# Module 6 — Automating Client Work with Copilot
+
+> This is where everything comes together with a practical focus: **how to identify tasks in client projects that Copilot can help automate, and how to build the prompts to do it.**
+
+---
+
+## Exercise 27 — Identify Automatable Tasks
+
+### Concept
+Not every task is a good fit for Copilot. The best candidates are:
+- **Repetitive** — you or the team do it frequently across projects
+- **Well-defined** — clear inputs, expected outputs, known constraints
+- **Code-centric** — involves writing, reviewing, transforming, or documenting code
+- **Low-risk to iterate** — a wrong first attempt is cheap to fix
+
+Poor candidates: tasks requiring deep business domain judgment, tasks with ambiguous requirements, or tasks where the output is highly creative and subjective.
+
+### Your Turn
+
+1. Think about your current or recent client work. Paste this into Copilot Chat:
+
+```
+I work on client software projects. Here are some tasks my team does regularly:
+
+- [TASK 1 — e.g., writing CRUD endpoints for new entities]
+- [TASK 2 — e.g., writing unit tests for service classes]
+- [TASK 3 — e.g., converting SQL queries to ORM calls]
+- [TASK 4 — e.g., writing API documentation from code]
+- [TASK 5 — e.g., creating migration scripts for schema changes]
+- [TASK 6 — e.g., reviewing PRs for security issues]
+
+For each task, rate it as HIGH / MEDIUM / LOW suitability for automation
+with an AI coding assistant (GitHub Copilot Chat — not agent mode, just chat).
+
+For each rating, explain:
+- Why it's suitable or not
+- What parts could be automated vs. what needs human judgment
+- What the prompt would need to include for good results
+
+Format as a table.
+```
+
+2. Review the ratings. You should see that tasks with clear structure and repeatable patterns score highest.
+
+3. Pick the **top 2 HIGH-rated tasks**. You'll build prompts for them in the next exercises.
+
+### Challenge
+Add tasks specific to your client's industry (healthcare compliance checks, financial data validation, etc.) and re-evaluate.
+
+---
+
+## Exercise 28 — Build a Client-Specific Prompt Template
+
+### Concept
+A client-specific prompt template is just like the templates from Module 2, but tailored to a specific client's tech stack, patterns, and requirements. The goal: any developer on your team can fill it in and get output that matches the client's standards.
+
+### Your Turn
+
+1. Pick one of the HIGH-rated tasks from Exercise 27. Paste this into Copilot Chat:
+
+```
+I need to create a reusable prompt template that my team can use in GitHub
+Copilot Chat to automate the following task for a client project:
+
+Task: [DESCRIBE THE TASK — e.g., "Generate unit tests for Spring Boot
+service classes"]
+
+Client context:
+- Tech stack: [e.g., Java 17, Spring Boot 3.2, JUnit 5, Mockito, PostgreSQL]
+- Coding standards: [e.g., Google Java Style, 80% code coverage minimum]
+- Patterns used: [e.g., repository pattern, service-controller layers,
+  DTOs for API responses]
+- Special requirements: [e.g., all tests must use @Transactional with
+  rollback, test database is H2 in-memory]
+
+Create a prompt template with [PLACEHOLDER] syntax that:
+1. Is specific enough to produce output matching this client's standards
+2. Is generic enough that the team can use it for any class in this project
+3. Includes a filled-in example showing the template in use
+
+The template should work when pasted directly into Copilot Chat alongside
+a #file reference to the target class.
+
+Output ONLY the template and the filled-in example.
+```
+
+2. Review the template. Test it by filling it in for a real class in your project:
+   - Use `#file:<path>` in Copilot Chat to reference the target file
+   - Paste the filled-in template
+   - Evaluate the output against the client's standards
+
+3. If the output isn't right, iterate:
+
+```
+The generated output has these issues: [list them].
+Update the template to prevent these issues. Add constraints or examples
+as needed.
+```
+
+4. Save the final template in `templates/client-[project-name]/[task].md`.
+
+### Key takeaway
+Client-specific templates are your team's biggest time saver. Once a template produces good output, anyone can use it — no prompt engineering knowledge needed.
+
+---
+
+## Exercise 29 — Test and Validate Your Client Prompt
+
+### Concept
+A prompt template isn't ready until you've tested it against **multiple real inputs** and verified the output is production-quality. This exercise walks you through a validation workflow.
+
+### Your Turn
+
+1. Take the template you built in Exercise 28.
+
+2. Fill it in for **3 different inputs** from the same client project (e.g., 3 different service classes, 3 different API endpoints, 3 different bug reports).
+
+3. For each, run it in Copilot Chat using `#file` references and evaluate:
+
+| Criterion | Input 1 | Input 2 | Input 3 |
+|-----------|---------|---------|---------|
+| Follows client coding standards? | Y/N | Y/N | Y/N |
+| Correct and complete output? | Y/N | Y/N | Y/N |
+| Required manual edits? | none / minor / major | ... | ... |
+| Time saved vs. manual? | estimate | ... | ... |
+
+4. If any input produced poor output, diagnose why:
+
+```
+I used this prompt template: [paste template]
+With this input: [paste the input that failed]
+The output had these problems: [list them]
+
+What should I change in the template to prevent these problems?
+Suggest specific additions or modifications.
+```
+
+5. Update the template and re-test until all 3 inputs produce good output.
+
+6. **Document it**: At the top of the template file, add a short note:
+
+```markdown
+<!-- Tested against: OrderService, PaymentService, ShippingService -->
+<!-- Last validated: [date] -->
+<!-- Typical time saved: ~15 min per class -->
 ```
 
 ### Key takeaway
-Windsurf's strength is that it can **read, search, and edit** — so your prompts can be action-oriented, not just question-oriented.
+A template that works for 1 input is a draft. A template that works for 3+ diverse inputs is ready to share with the team.
 
 ---
 
-## Exercise 26 — Saving Prompts as Reusable Workflows
-
-### Concept
-Both tools support saving instructions so your team doesn't have to re-type them.
-
-### GitHub Copilot — Custom Instructions
-
-1. Create `.github/copilot-instructions.md` in your repo.
-2. Add instructions that Copilot will include in every chat:
-
-```
-Ask the AI to help you write a copilot-instructions file:
-
-Write a `.github/copilot-instructions.md` file for a team that works with
-[YOUR TECH STACK]. It should tell Copilot to:
-
-- Always follow [YOUR CODING STANDARDS]
-- Use [YOUR PREFERRED PATTERNS] (e.g., repository pattern, dependency injection)
-- Write tests using [YOUR TEST FRAMEWORK]
-- Format code according to [YOUR FORMATTER/LINTER]
-- Never suggest [THINGS TO AVOID]
-
-Keep it under 30 lines. Output the file content only.
-```
-
-### Windsurf — Workflows
-
-1. Create `.windsurf/workflows/review-code.md`:
-
-```
-Ask the AI to help you write a Windsurf workflow:
-
-Write a Windsurf workflow file (`.windsurf/workflows/review-code.md`) that,
-when invoked with `/review-code`, does the following:
-
-1. Asks the user which file to review.
-2. Reads the file.
-3. Reviews it for: error handling, performance, security, and readability.
-4. Lists issues by severity with suggested fixes.
-5. Offers to apply the fixes directly.
-
-Use the Windsurf workflow format with YAML frontmatter (description field)
-followed by markdown steps. Output the file content only.
-```
-
-### Save both
-Commit these files to your repo so the entire team benefits.
+# Module 7 — Putting It All Together
 
 ---
 
-# Module 6 — Putting It All Together
-
----
-
-## Exercise 27 — End-to-End Challenge
+## Exercise 30 — End-to-End Challenge
 
 ### Concept
 This exercise combines everything you've learned. You'll take a real problem, use the right technique to solve it, and evaluate the quality of the result.
@@ -1243,11 +1403,12 @@ This exercise combines everything you've learned. You'll take a real problem, us
 | Code review | Code-review template (Ex. 8) + multi-persona (Ex. 22) |
 | Documentation | Documentation template (Ex. 9) + audience constraints (Ex. 3) |
 | Architecture decision | Multi-persona (Ex. 22) + constraint-based (Ex. 23) |
+| Client task automation | Client template (Ex. 28) + validation (Ex. 29) |
 | Not sure how to start | Meta-prompt (Ex. 11–20) to generate the prompt for you |
 
-3. **Build your prompt** using the matching template from Module 2, enhanced with techniques from Modules 1 and 4.
+3. **Build your prompt** using the matching template from Module 2 (or Module 6 for client work), enhanced with techniques from Modules 1 and 4.
 
-4. **Run it** in your AI tool, using the tool-specific features from Module 5 (context references, file reading, etc.).
+4. **Run it** in Copilot Chat, using context references from Module 5 (`#file`, `#selection`, `@workspace`).
 
 5. **Refine** with 2–3 follow-up messages.
 
@@ -1258,14 +1419,14 @@ This exercise combines everything you've learned. You'll take a real problem, us
 
 ---
 
-## Exercise 28 — Build a Team Prompt Library
+## Exercise 31 — Build a Team Prompt Library
 
 ### Concept
-The most productive teams don't start from scratch every time — they maintain a **shared prompt library** that anyone can use.
+The most productive teams don't start from scratch every time — they maintain a **shared prompt library** that anyone can use. This includes both general templates and client-specific ones.
 
 ### Your Turn
 
-1. Paste this into your AI chat:
+1. Paste this into Copilot Chat:
 
 ```
 I want to create a team prompt library stored in our repo under a `prompts/`
@@ -1312,15 +1473,19 @@ git push
 | **Multi-persona** | Architecture decisions, trade-off analysis |
 | **Constraint-based** | Team standards, repeatable outputs |
 | **Templates** | Any task the team does repeatedly |
+| **Client templates** | Automating repetitive client work with Copilot |
 | **Meta-prompt** | When you're not sure how to write the prompt at all |
+| **`#file` / `@workspace`** | Always — give Copilot real code context, don't paste |
+| **Custom instructions** | Set once per repo, enforces team standards automatically |
 
 ---
 
 ## What's Next
 
-- **Review `prompt-guide.md`** for a comprehensive reference of patterns and techniques.
+- **Review `prompt-guide.md`** for a quick-reference of all patterns and techniques.
 - **Review `meta-prompt.md`** for a polished, ready-to-use meta-prompt you can compare yours against.
-- **Customize your templates** for your team's stack and commit them to your repo.
+- **Set up `.github/copilot-instructions.md`** for every active project.
+- **Build client-specific templates** for your top 3 repetitive tasks and share them with the team.
 - **Practice daily** — the more you prompt, the faster you get.
 
 ---

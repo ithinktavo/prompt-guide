@@ -1,10 +1,10 @@
 # Prompt Guide — Topic Outline
 
-> **Goal**: A simple, step-by-step guide that teaches anyone how to write better prompts *and* build reusable prompt templates they can hand to AI (GitHub Copilot, Windsurf Chat, etc.) to solve real problems.
+> **Goal**: A simple, step-by-step guide that teaches developers how to write better prompts *and* build reusable prompt templates they can use in GitHub Copilot Chat to automate real work — from bug fixes to client deliverables.
 
 ### Hands-On Workbook
 
-This outline maps to a companion [workbook](workbook.md) with 28 hands-on exercises:
+This outline maps to a companion [workbook](workbook.md) with 31 hands-on exercises:
 
 | Topic Outline Part | Workbook Module | Exercises |
 |---|---|---|
@@ -12,8 +12,9 @@ This outline maps to a companion [workbook](workbook.md) with 28 hands-on exerci
 | **Part 2** — Writing Better Prompts | Module 1 — Prompt Foundations | Ex. 1–5 |
 | **Part 3** — Reusable Templates | Module 2 — Reusable Templates | Ex. 6–10 |
 | **Part 4** — The Meta-Prompt File | Module 3 — Build Your Own Meta-Prompt | Ex. 11–20 |
-| **Part 5** — Tool-Specific Usage | Module 5 — Tool-Specific Features | Ex. 24–26 |
-| **Part 6** — Putting It All Together | Module 6 — Putting It All Together | Ex. 27–28 |
+| **Part 5** — GitHub Copilot in Practice | Module 5 — GitHub Copilot Power Features | Ex. 24–26 |
+| **Part 6** — Automating Client Work | Module 6 — Automating Client Work with Copilot | Ex. 27–29 |
+| **Part 7** — Putting It All Together | Module 7 — Putting It All Together | Ex. 30–31 |
 
 > Open the [Complete Workbook](workbook.md) and work through the exercises at your own pace. Each module is self-contained.
 
@@ -134,7 +135,7 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 - Team members don't need to learn prompt engineering — they just run the file
 - Every generated prompt follows the same proven structure
 - The clarifying-questions step prevents vague, low-quality prompts
-- Works in any LLM tool: Copilot Chat, Windsurf, ChatGPT, etc.
+- Works directly in GitHub Copilot Chat
 
 ### 18. How to Build a Meta-Prompt File (Step by Step)
 
@@ -162,7 +163,7 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 
 **Step 6 — Save and share**
 - Store as a `.md` file in your repo (e.g., `prompts/meta-prompt.md`)
-- Anyone on the team can open it, paste it into their AI tool, and start generating prompts
+- Anyone on the team can open it, paste it into Copilot Chat, and start generating prompts
 
 ### 19. Anatomy of the Meta-Prompt File
 - **Section 1 — System Instructions**: Role, behavior rules, guardrails
@@ -179,41 +180,69 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 
 ---
 
-## Part 5 — Using Templates & Meta-Prompts in Your Tools
+## Part 5 — GitHub Copilot in Practice
 
-### 21. In GitHub Copilot Chat
+### 21. Using Templates in GitHub Copilot Chat
 - How to paste a template or meta-prompt into Copilot Chat
 - Using `@workspace` and `#file` references to add context automatically
+- Using chat participants: `@workspace`, `@terminal`, `@vscode`
+- Using slash commands: `/explain`, `/fix`, `/tests`, `/doc`
+- Combining slash commands with your templates for faster workflows
+
+### 22. Custom Instructions for the Team
 - Saving prompts in a team `.github/copilot-instructions.md` file
+- What to include: tech stack, coding standards, patterns, test frameworks
+- How Copilot automatically includes these instructions in every chat
+- Keeping instructions concise and high-signal
 
-### 22. In Windsurf (Cascade)
-- How to use templates and meta-prompts in Windsurf Chat
-- Leveraging Cascade's file reading, search, and codebase context
-- Storing templates as Windsurf Workflows (`.windsurf/workflows/`)
-
-### 23. Tips for Both Tools
+### 23. Tips for Getting the Most Out of Copilot Chat
 - Keep prompts under one screen of text when possible
-- Attach or reference files instead of pasting huge blocks of code
+- Use `#file` and `#selection` instead of pasting huge blocks of code
 - Use follow-up messages to drill deeper rather than one giant prompt
+- Highlight code in the editor before prompting for context-aware responses
 
-> 📘 **Practice**: [Workbook](workbook.md) → Module 5, Exercises 24–26 (Copilot context references, Cascade codebase-aware prompting, reusable workflows)
+> 📘 **Practice**: [Workbook](workbook.md) → Module 5, Exercises 24–26 (Copilot context references, slash commands, custom instructions)
 
 ---
 
-## Part 6 — Putting It All Together
+## Part 6 — Automating Client Work with Copilot
 
-### 24. Live Walkthrough: From Problem to Solution
+### 24. Identifying Automatable Tasks in Client Work
+- How to spot tasks that are good candidates for Copilot automation
+- The sweet spot: repetitive, well-defined, code-centric tasks
+- Examples: boilerplate generation, test writing, migrations, data transformations, API scaffolding
+- When NOT to automate — tasks requiring deep business logic or domain judgment
+
+### 25. From Client Requirement to Copilot Prompt
+- Walkthrough: translating a client task into a reusable prompt template
+- Using the meta-prompt to generate the initial prompt
+- Testing the prompt against real client code
+- Iterating until the output is production-ready
+
+### 26. Building a Client-Ready Prompt Library
+- Organizing prompts by client, project, or task type
+- Storing them in the repo so the whole team can use them
+- Versioning prompts alongside the code they operate on
+- Review cycle: improving prompts based on team feedback
+
+> 📘 **Practice**: [Workbook](workbook.md) → Module 6, Exercises 27–29 (identify automatable tasks, build a client prompt, test it end-to-end)
+
+---
+
+## Part 7 — Putting It All Together
+
+### 27. Live Walkthrough: From Problem to Solution
 - Pick a real issue from the backlog
 - Run the meta-prompt file → answer the AI's questions → get a generated prompt
-- Paste the generated prompt into your AI tool
+- Paste the generated prompt into Copilot Chat
 - Show the result and any follow-up refinement
 
-### 25. Team Playbook
-- Where to store your templates and meta-prompt files (repo wiki, shared folder, workflow files)
+### 28. Team Playbook
+- Where to store your templates and meta-prompt files (repo, shared folder)
 - How to version and improve them over time
 - Encouraging the team to share prompts that worked
 
-> 📘 **Practice**: [Workbook](workbook.md) → Module 6, Exercises 27–28 (end-to-end challenge and team prompt library)
+> 📘 **Practice**: [Workbook](workbook.md) → Module 7, Exercises 30–31 (end-to-end challenge and team prompt library)
 
 ---
 
