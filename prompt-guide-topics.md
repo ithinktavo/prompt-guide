@@ -1,10 +1,10 @@
 # Prompt Guide — Topic Outline
 
-> **Goal**: A simple, step-by-step guide that teaches developers how to write better prompts *and* build reusable prompt templates they can use in GitHub Copilot Chat to automate real work — from bug fixes to client deliverables.
+> **Goal**: A step-by-step guide that teaches developers how to write better prompts, build reusable prompt templates, and automate real work using AI coding tools (GitHub Copilot, Windsurf, Claude Code). Core concepts are tool-agnostic — learn once, apply anywhere.
 
 ### Hands-On Workbook
 
-This outline maps to a companion [workbook](workbook.md) with 31 hands-on exercises:
+This outline maps to a companion [workbook](workbook.md) with 35 hands-on exercises:
 
 | Topic Outline Part | Workbook Module | Exercises |
 |---|---|---|
@@ -12,9 +12,11 @@ This outline maps to a companion [workbook](workbook.md) with 31 hands-on exerci
 | **Part 2** — Writing Better Prompts | Module 1 — Prompt Foundations | Ex. 1–5 |
 | **Part 3** — Reusable Templates | Module 2 — Reusable Templates | Ex. 6–10 |
 | **Part 4** — The Meta-Prompt File | Module 3 — Build Your Own Meta-Prompt | Ex. 11–20 |
-| **Part 5** — GitHub Copilot in Practice | Module 5 — GitHub Copilot Power Features | Ex. 24–26 |
-| **Part 6** — Automating Client Work | Module 6 — Automating Client Work with Copilot | Ex. 27–29 |
-| **Part 7** — Putting It All Together | Module 7 — Putting It All Together | Ex. 30–31 |
+| **Part 5** — GitHub Copilot | Module 5 — GitHub Copilot | Ex. 24–26 |
+| **Part 6** — Windsurf | Module 6 — Windsurf (Cascade) | Ex. 27–28 |
+| **Part 7** — Claude Code | Module 7 — Claude Code | Ex. 29–31 |
+| **Part 8** — Automating Client Work | Module 8 — Automating Client Work | Ex. 32–34 |
+| **Part 9** — Putting It All Together | Module 9 — Putting It All Together | Ex. 35 |
 
 > Open the [Complete Workbook](workbook.md) and work through the exercises at your own pace. Each module is self-contained.
 
@@ -135,7 +137,7 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 - Team members don't need to learn prompt engineering — they just run the file
 - Every generated prompt follows the same proven structure
 - The clarifying-questions step prevents vague, low-quality prompts
-- Works directly in GitHub Copilot Chat
+- Works in any AI coding tool (Copilot, Windsurf, Claude Code)
 
 ### 18. How to Build a Meta-Prompt File (Step by Step)
 
@@ -163,7 +165,7 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 
 **Step 6 — Save and share**
 - Store as a `.md` file in your repo (e.g., `prompts/meta-prompt.md`)
-- Anyone on the team can open it, paste it into Copilot Chat, and start generating prompts
+- Anyone on the team can open it, paste it into their AI tool, and start generating prompts
 
 ### 19. Anatomy of the Meta-Prompt File
 - **Section 1 — System Instructions**: Role, behavior rules, guardrails
@@ -180,7 +182,7 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 
 ---
 
-## Part 5 — GitHub Copilot in Practice
+## Part 5 — GitHub Copilot *(do this module if you have Copilot)*
 
 ### 21. Using Templates in GitHub Copilot Chat
 - How to paste a template or meta-prompt into Copilot Chat
@@ -193,56 +195,91 @@ OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
 - Saving prompts in a team `.github/copilot-instructions.md` file
 - What to include: tech stack, coding standards, patterns, test frameworks
 - How Copilot automatically includes these instructions in every chat
-- Keeping instructions concise and high-signal
 
 ### 23. Tips for Getting the Most Out of Copilot Chat
 - Keep prompts under one screen of text when possible
 - Use `#file` and `#selection` instead of pasting huge blocks of code
-- Use follow-up messages to drill deeper rather than one giant prompt
 - Highlight code in the editor before prompting for context-aware responses
 
-> 📘 **Practice**: [Workbook](workbook.md) → Module 5, Exercises 24–26 (Copilot context references, slash commands, custom instructions)
+> 📘 **Practice**: [Workbook](workbook.md) → Module 5, Exercises 24–26 (context references, slash commands, custom instructions)
 
 ---
 
-## Part 6 — Automating Client Work with Copilot
+## Part 6 — Windsurf *(do this module when you have Windsurf — skip if not yet available)*
 
-### 24. Identifying Automatable Tasks in Client Work
-- How to spot tasks that are good candidates for Copilot automation
+### 24. Codebase-Aware Prompting with Cascade
+- Using `@codebase` for project-wide discovery and `@file` for targeted work
+- Cascade can read, search, and edit files directly — prompts become action-oriented
+- Combining codebase context with templates from Part 3
+
+### 25. Windsurf Rules and Workflows
+- **Rules** (`.windsurf/rules/*.md`) — always-on instructions for every conversation (like Copilot's custom instructions)
+- **Workflows** (`.windsurf/workflows/*.md`) — multi-step saved prompts triggered with `/name`
+- How to create, test, and share both with the team
+
+> 📘 **Practice**: [Workbook](workbook.md) → Module 6, Exercises 27–28 (Cascade prompting, rules, workflows)
+
+---
+
+## Part 7 — Claude Code *(do this module when you have Claude Code — skip if not yet available)*
+
+### 26. CLAUDE.md: Project Instructions
+- `CLAUDE.md` at repo root — loaded automatically in every conversation
+- Hierarchical: folder-level `CLAUDE.md` files add context for specific areas
+- What to include: stack, standards, commands, architecture, things to avoid
+
+### 27. Skills: Reusable Slash Commands
+- `.claude/skills/*.md` — saved prompts triggered with `/skill-name`
+- Project skills (shared via git) vs. personal skills (local only)
+- Creating multi-step skills for common team tasks
+
+### 28. Hooks and MCP Servers
+- **Hooks** — scripts that run before/after actions (auto-lint, auto-format, secret checks)
+- **MCP servers** — external tool integrations (databases, Jira, Slack, etc.)
+- The most programmable customization of any AI coding tool
+
+> 📘 **Practice**: [Workbook](workbook.md) → Module 7, Exercises 29–31 (CLAUDE.md, skills, hooks)
+
+---
+
+## Part 8 — Automating Client Work
+
+### 29. Identifying Automatable Tasks in Client Work
+- How to spot tasks that are good candidates for AI automation
 - The sweet spot: repetitive, well-defined, code-centric tasks
 - Examples: boilerplate generation, test writing, migrations, data transformations, API scaffolding
 - When NOT to automate — tasks requiring deep business logic or domain judgment
 
-### 25. From Client Requirement to Copilot Prompt
+### 30. From Client Requirement to Reusable Prompt
 - Walkthrough: translating a client task into a reusable prompt template
 - Using the meta-prompt to generate the initial prompt
 - Testing the prompt against real client code
 - Iterating until the output is production-ready
 
-### 26. Building a Client-Ready Prompt Library
+### 31. Building a Client-Ready Prompt Library
 - Organizing prompts by client, project, or task type
 - Storing them in the repo so the whole team can use them
 - Versioning prompts alongside the code they operate on
 - Review cycle: improving prompts based on team feedback
 
-> 📘 **Practice**: [Workbook](workbook.md) → Module 6, Exercises 27–29 (identify automatable tasks, build a client prompt, test it end-to-end)
+> 📘 **Practice**: [Workbook](workbook.md) → Module 8, Exercises 32–34 (identify automatable tasks, build a client prompt, test it end-to-end)
 
 ---
 
-## Part 7 — Putting It All Together
+## Part 9 — Putting It All Together
 
-### 27. Live Walkthrough: From Problem to Solution
+### 32. Live Walkthrough: From Problem to Solution
 - Pick a real issue from the backlog
 - Run the meta-prompt file → answer the AI's questions → get a generated prompt
-- Paste the generated prompt into Copilot Chat
+- Paste the generated prompt into your AI tool
 - Show the result and any follow-up refinement
 
-### 28. Team Playbook
+### 33. Team Playbook
 - Where to store your templates and meta-prompt files (repo, shared folder)
 - How to version and improve them over time
 - Encouraging the team to share prompts that worked
 
-> 📘 **Practice**: [Workbook](workbook.md) → Module 7, Exercises 30–31 (end-to-end challenge and team prompt library)
+> 📘 **Practice**: [Workbook](workbook.md) → Module 9, Exercise 35 (end-to-end challenge)
 
 ---
 

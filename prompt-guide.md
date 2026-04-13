@@ -1,6 +1,6 @@
 # Prompt Engineering — Quick Reference
 
-> **What this is**: A one-page reference card for writing effective prompts in GitHub Copilot Chat. Use this alongside the [Workbook](workbook.md) for hands-on practice or the [Topic Outline](prompt-guide-topics.md) for the full curriculum.
+> **What this is**: A reference card for writing effective prompts in any AI coding tool (GitHub Copilot, Windsurf, Claude Code). Core techniques are universal; tool-specific features are listed separately. Use alongside the [Workbook](workbook.md) for hands-on practice.
 
 ---
 
@@ -69,25 +69,64 @@ Write [content] with these constraints:
 
 ---
 
-## GitHub Copilot Chat — Key Features
+## Tool-Specific Features
 
-### Context References
-| Reference | What It Does | When to Use |
-|-----------|-------------|-------------|
-| `@workspace` | Gives Copilot your full repo context | Codebase-wide questions, architecture, finding files |
-| `#file:<path>` | References a specific file | Reviewing, explaining, or modifying a known file |
-| `#selection` | References highlighted code in editor | Explaining, fixing, or testing selected code |
+### How Concepts Map Across Tools
 
-### Slash Commands
-| Command | What It Does | Pro Tip |
-|---------|-------------|---------|
-| `/explain` | Explains selected code | Add "focus on edge cases" or "for a junior dev" |
-| `/fix` | Suggests a fix | Add "fix only [specific issue], explain root cause" |
-| `/tests` | Generates unit tests | Add framework name + specific scenarios to cover |
-| `/doc` | Generates doc comments | Add format (JSDoc/Javadoc) + what to skip |
+| Concept | GitHub Copilot | Windsurf | Claude Code |
+|---------|---------------|----------|-------------|
+| **Project instructions** | `.github/copilot-instructions.md` | `.windsurf/rules/*.md` | `CLAUDE.md` |
+| **Reusable prompts** | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | `.claude/skills/*.md` |
+| **Trigger a saved prompt** | `#<prompt-name>` | `/workflow-name` | `/skill-name` |
+| **File context** | `#file:path`, `#selection` | `@file` | Automatic |
+| **Codebase context** | `@workspace` | `@codebase` | Automatic |
+| **Built-in shortcuts** | `/explain`, `/fix`, `/tests`, `/doc` | Built into Cascade | Built-in commands |
+| **Automation hooks** | — | — | Hooks (pre/post scripts) |
+| **External integrations** | GitHub ecosystem | Web search | MCP servers |
 
-### Custom Instructions
-Store team-wide instructions in `.github/copilot-instructions.md` — Copilot includes them in every chat automatically.
+---
+
+### GitHub Copilot
+
+| Reference | What It Does |
+|-----------|-------------|
+| `@workspace` | Full repo context — codebase-wide questions |
+| `#file:<path>` | Reference a specific file |
+| `#selection` | Reference highlighted code in editor |
+| `/explain` | Explain selected code (add constraints after) |
+| `/fix` | Suggest a fix (add "fix only X" after) |
+| `/tests` | Generate tests (add framework + scenarios after) |
+| `/doc` | Generate doc comments (add format after) |
+
+**Project instructions**: `.github/copilot-instructions.md` — included in every chat automatically.
+
+---
+
+### Windsurf (Cascade)
+
+| Reference | What It Does |
+|-----------|-------------|
+| `@codebase` | Search the entire project |
+| `@file` | Reference a specific file by path |
+| `@web` | Search the internet |
+
+**Rules** (`.windsurf/rules/*.md`): Always-on instructions for every conversation.
+**Workflows** (`.windsurf/workflows/*.md`): Multi-step prompts triggered with `/name`.
+
+Cascade can read, search, and **edit** files directly — prompts can be action-oriented.
+
+---
+
+### Claude Code
+
+| Feature | What It Does |
+|---------|-------------|
+| `CLAUDE.md` | Project instructions (root or any subfolder) — loaded automatically |
+| `.claude/skills/*.md` | Reusable slash commands triggered with `/skill-name` |
+| Hooks | Scripts that run before/after actions (auto-lint, auto-format, secret checks) |
+| MCP servers | External tool integrations (databases, Jira, Slack, etc.) |
+
+Claude Code reads the full codebase automatically — no need for manual file references.
 
 ---
 
@@ -158,8 +197,8 @@ OUTPUT: Clear explanation the audience can follow.
 | Wrong format | Specify exact output structure with an example |
 | Off-topic | Add "Stay focused on X. Do not discuss Y." |
 | Too long/short | Specify word count or section count |
-| Ignores your code | Use `#file` or `#selection` instead of pasting |
-| Inconsistent style | Set up `.github/copilot-instructions.md` |
+| Ignores your code | Use file references (`#file`, `@file`) instead of pasting |
+| Inconsistent style | Set up project instructions (see tool-specific sections above) |
 
 ---
 
@@ -180,19 +219,28 @@ Use these follow-ups to improve the first response:
 
 ```
 your-repo/
-├── .github/
-│   └── copilot-instructions.md    ← Team-wide Copilot settings
-├── prompts/
-│   ├── meta-prompt.md             ← Prompt that generates prompts
+├── .github/                           ← GitHub Copilot
+│   ├── copilot-instructions.md        ←   Project instructions
+│   └── prompts/*.prompt.md            ←   Reusable prompt files
+├── .windsurf/                         ← Windsurf
+│   ├── rules/*.md                     ←   Project instructions
+│   └── workflows/*.md                 ←   Reusable workflows
+├── CLAUDE.md                          ← Claude Code project instructions
+├── .claude/
+│   └── skills/*.md                    ←   Reusable skills
+├── prompts/                           ← Shared (any tool)
+│   ├── meta-prompt.md                 ←   Prompt that generates prompts
 │   ├── templates/
 │   │   ├── bug-fix.md
 │   │   ├── code-gen.md
 │   │   ├── code-review.md
 │   │   └── documentation.md
-│   └── client-[project]/          ← Client-specific templates
+│   └── client-[project]/              ←   Client-specific templates
 │       ├── unit-tests.md
 │       └── api-scaffold.md
 ```
+
+> **Note**: The `prompts/` folder works with any tool — just paste template contents into chat. The tool-specific folders (`.github/`, `.windsurf/`, `.claude/`) enable each tool's native features.
 
 ---
 

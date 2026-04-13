@@ -1,11 +1,13 @@
-# Prompt Engineering Guide for GitHub Copilot
+# Prompt Engineering Guide
 
-A hands-on guide that teaches our team how to write effective prompts, build reusable prompt templates, and automate client work using GitHub Copilot Chat.
+A hands-on guide that teaches our team how to write effective prompts, build reusable prompt templates, and automate client work using AI coding tools.
+
+**Core concepts are tool-agnostic** — learn once, apply to any tool. Tool-specific modules cover GitHub Copilot, Windsurf, and Claude Code separately.
 
 ## Who This Is For
 
 Developers on our team who want to:
-- Get better results from GitHub Copilot Chat
+- Get better results from AI coding tools
 - Create reusable prompt templates for common tasks (bug fixes, code gen, reviews, docs)
 - Build client-specific prompts that any team member can use to automate repetitive work
 
@@ -15,47 +17,74 @@ No prior prompt engineering experience required.
 
 | File | What It Is | When to Use It |
 |------|-----------|----------------|
-| [workbook.md](workbook.md) | **31 hands-on exercises** across 7 modules | Start here — this is the main learning path (~3 hrs) |
+| [workbook.md](workbook.md) | **35 hands-on exercises** across 9 modules | Start here — this is the main learning path (~3.5 hrs) |
 | [prompt-guide-topics.md](prompt-guide-topics.md) | Full curriculum outline with explanations | Read alongside the workbook for deeper context |
-| [prompt-guide.md](prompt-guide.md) | One-page quick-reference card | Keep open while working — patterns, templates, Copilot features |
-| [meta-prompt.md](meta-prompt.md) | Ready-to-use meta-prompt | Paste into Copilot Chat to generate prompts on demand |
+| [prompt-guide.md](prompt-guide.md) | One-page quick-reference card | Keep open while working — patterns, templates, tool features |
+| [meta-prompt.md](meta-prompt.md) | Ready-to-use meta-prompt | Paste into any AI chat to generate prompts on demand |
 
 ## Getting Started
 
 1. **Open [workbook.md](workbook.md)** and start with Module 1
 2. Keep [prompt-guide.md](prompt-guide.md) open as a reference
 3. Work through exercises at your own pace — each module is self-contained
+4. **For tool-specific modules (5–7)**: do the one(s) that match the tool(s) you have access to, skip the rest
 
 ### Prerequisites
 
-- VS Code (or JetBrains) with **GitHub Copilot Chat** enabled
-- Access to a project repo you can use for practice exercises
+- At least one AI coding tool: **GitHub Copilot Chat**, **Windsurf**, or **Claude Code**
+- A project repo you can use for practice exercises
 
 ## Learning Path
 
 ```
-Module 1 — Prompt Foundations          (Ex. 1–5)    ~20 min
-  Write clear, structured prompts with goals, context, and constraints
-
-Module 2 — Reusable Templates         (Ex. 6–10)   ~25 min
-  Build fill-in-the-blank templates for bug fixes, code gen, reviews, docs
-
-Module 3 — Build Your Own Meta-Prompt (Ex. 11–20)  ~35 min
-  Create a "prompt that generates prompts" — paste it once, get structured
-  prompts for any task
-
-Module 4 — Advanced Strategies        (Ex. 21–23)  ~20 min
-  Iterative refinement, multi-persona analysis, constraint-based generation
-
-Module 5 — GitHub Copilot Features    (Ex. 24–26)  ~20 min
-  Context references (@workspace, #file), slash commands, custom instructions
-
-Module 6 — Automating Client Work     (Ex. 27–29)  ~20 min
-  Identify automatable tasks, build client-specific templates, validate them
-
-Module 7 — Putting It All Together    (Ex. 30–31)  ~15 min
-  End-to-end challenge and team prompt library
+ CORE CONCEPTS (any tool) ─────────────────────────────────────────
+│
+│  Module 1 — Prompt Foundations          (Ex. 1–5)    ~20 min
+│    Write clear, structured prompts with goals, context, constraints
+│
+│  Module 2 — Reusable Templates         (Ex. 6–10)   ~25 min
+│    Build fill-in-the-blank templates for bug fixes, code gen, reviews, docs
+│
+│  Module 3 — Build Your Own Meta-Prompt (Ex. 11–20)  ~35 min
+│    Create a "prompt that generates prompts"
+│
+│  Module 4 — Advanced Strategies        (Ex. 21–23)  ~20 min
+│    Iterative refinement, multi-persona analysis, constraint-based generation
+│
+├─ TOOL-SPECIFIC (do the modules for tools you have access to) ────
+│
+│  Module 5 — GitHub Copilot             (Ex. 24–26)  ~20 min
+│    @workspace, #file, slash commands, .github/copilot-instructions.md
+│
+│  Module 6 — Windsurf                   (Ex. 27–28)  ~15 min
+│    ⚠️  Skip if you don't have Windsurf yet
+│    @codebase, Cascade, .windsurf/rules/, .windsurf/workflows/
+│
+│  Module 7 — Claude Code                (Ex. 29–31)  ~15 min
+│    ⚠️  Skip if you don't have Claude Code yet
+│    CLAUDE.md, .claude/skills/, hooks, MCP servers
+│
+├─ APPLYING IT ────────────────────────────────────────────────────
+│
+│  Module 8 — Automating Client Work     (Ex. 32–34)  ~20 min
+│    Identify automatable tasks, build client templates, validate them
+│
+│  Module 9 — Putting It All Together    (Ex. 35)     ~15 min
+│    End-to-end challenge and team prompt library
 ```
+
+## How Concepts Map Across Tools
+
+The same ideas have different names in each tool:
+
+| Concept | GitHub Copilot | Windsurf | Claude Code |
+|---------|---------------|----------|-------------|
+| **Project instructions** | `.github/copilot-instructions.md` | `.windsurf/rules/*.md` | `CLAUDE.md` |
+| **Reusable prompts** | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | `.claude/skills/*.md` |
+| **Trigger saved prompt** | `#<prompt-name>` | `/workflow-name` | `/skill-name` |
+| **File context** | `#file:path`, `#selection` | `@file` | Automatic |
+| **Codebase context** | `@workspace` | `@codebase` | Automatic |
+| **Automation hooks** | — | — | Hooks (pre/post scripts) |
 
 ## Setting Up Your Team's Prompt Library
 
@@ -63,22 +92,32 @@ After completing the workbook, your repo should have:
 
 ```
 your-repo/
-├── .github/
-│   └── copilot-instructions.md    ← Team-wide Copilot settings (Ex. 26)
-└── prompts/
-    ├── meta-prompt.md             ← Prompt that generates prompts (Ex. 11–20)
-    └── templates/
-        ├── bug-fix.md             ← (Ex. 6)
-        ├── code-gen.md            ← (Ex. 7)
-        ├── code-review.md         ← (Ex. 8)
-        ├── documentation.md       ← (Ex. 9)
-        └── client-[project]/      ← Client-specific templates (Ex. 28–29)
+├── .github/                           ← GitHub Copilot
+│   ├── copilot-instructions.md        ←   Project instructions
+│   └── prompts/*.prompt.md            ←   Reusable prompt files
+├── .windsurf/                         ← Windsurf (when available)
+│   ├── rules/*.md                     ←   Project instructions
+│   └── workflows/*.md                 ←   Reusable workflows
+├── CLAUDE.md                          ← Claude Code (when available)
+├── .claude/
+│   └── skills/*.md                    ←   Reusable skills
+├── prompts/                           ← Shared (any tool)
+│   ├── meta-prompt.md
+│   ├── templates/
+│   │   ├── bug-fix.md
+│   │   ├── code-gen.md
+│   │   ├── code-review.md
+│   │   └── documentation.md
+│   └── client-[project]/
+│       └── [task-specific templates]
 ```
+
+> The `prompts/` folder works with any tool — just paste template contents into chat. The tool-specific folders enable each tool's native features.
 
 ## Quick Wins
 
 If you only have 10 minutes, do these:
 
-1. **Set up `.github/copilot-instructions.md`** for your project ([Exercise 26](workbook.md)) — every Copilot Chat will automatically follow your team's standards
-2. **Learn `#file` and `@workspace`** references ([Exercise 24](workbook.md)) — stop pasting code, start referencing it
-3. **Use slash commands with extra instructions** ([Exercise 25](workbook.md)) — `/tests` alone is okay, `/tests` + constraints is great
+1. **Set up project instructions** for your current project ([Ex. 26](workbook.md) for Copilot, [Ex. 28](workbook.md) for Windsurf, [Ex. 29](workbook.md) for Claude Code) — every conversation will automatically follow your team's standards
+2. **Learn file references** ([Exercise 24](workbook.md)) — stop pasting code, start referencing it
+3. **Skim the quick-reference card** ([prompt-guide.md](prompt-guide.md)) — the 6-step formula and template structures

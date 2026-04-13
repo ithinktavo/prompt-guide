@@ -1,14 +1,16 @@
 # Prompt Engineering — Complete Hands-On Workbook
 
-> **What you'll do**: Work through 31 hands-on exercises that take you from writing your first good prompt to building reusable templates, constructing a meta-prompt from scratch, mastering advanced strategies, using GitHub Copilot effectively, and automating real client work.
+> **What you'll do**: Work through 35 hands-on exercises that take you from writing your first good prompt to building reusable templates, constructing a meta-prompt, mastering advanced strategies, getting the most from your AI tools, and automating real client work.
 >
-> **Prerequisites**: Access to **GitHub Copilot Chat** (in VS Code or JetBrains). No prior prompt-engineering experience required.
+> **Prerequisites**: Access to at least one AI coding tool — **GitHub Copilot Chat**, **Windsurf (Cascade)**, or **Claude Code**. No prior prompt-engineering experience required.
 >
-> **Time**: ~3 hours (work at your own pace — each module is self-contained)
+> **Time**: ~3.5 hours (work at your own pace — each module is self-contained)
 
 ---
 
 ## How This Workbook Is Organized
+
+**Modules 1–4 are tool-agnostic** — the concepts work in any AI coding tool. Modules 5–7 cover tool-specific features for each platform. Do the module(s) that match the tool(s) you have access to.
 
 | Module | What You'll Learn | Exercises | Time |
 |--------|-------------------|-----------|------|
@@ -16,15 +18,34 @@
 | **2 — Reusable Templates** | Build fill-in-the-blank templates for common tasks | 6–10 | ~25 min |
 | **3 — Build Your Own Meta-Prompt** | Construct a "prompt that generates prompts" | 11–20 | ~35 min |
 | **4 — Advanced Strategies** | Iterative refinement, multi-persona, constraint-based | 21–23 | ~20 min |
-| **5 — GitHub Copilot Power Features** | Context references, slash commands, custom instructions | 24–26 | ~20 min |
-| **6 — Automating Client Work** | Identify tasks, build client prompts, test end-to-end | 27–29 | ~20 min |
-| **7 — Putting It All Together** | End-to-end challenge and team prompt library | 30–31 | ~15 min |
+| **5 — GitHub Copilot** | Context references, slash commands, custom instructions | 24–26 | ~20 min |
+| **6 — Windsurf (Cascade)** | Codebase-aware prompting, rules, workflows | 27–28 | ~15 min |
+| **7 — Claude Code** | CLAUDE.md, skills, hooks, MCP servers | 29–31 | ~15 min |
+| **8 — Automating Client Work** | Identify tasks, build client prompts, test end-to-end | 32–34 | ~20 min |
+| **9 — Putting It All Together** | End-to-end challenge and team prompt library | 35 | ~15 min |
+
+### How the Concepts Map Across Tools
+
+Every tool has its own names for the same underlying ideas. This table is your Rosetta Stone:
+
+| Concept | GitHub Copilot | Windsurf | Claude Code |
+|---------|---------------|----------|-------------|
+| **Project instructions** (always-on rules for every conversation) | `.github/copilot-instructions.md` | `.windsurf/rules/*.md` | `CLAUDE.md` (root or any folder) |
+| **Reusable prompt templates** (fill-in-the-blank prompts) | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | Custom skills (`.claude/skills/*.md`) |
+| **Trigger a saved prompt** | `#<prompt-name>` in chat | `/workflow-name` in chat | `/skill-name` in chat |
+| **Give file context** | `#file:path` or `#selection` | `@file` or paste path | Automatic (reads files on demand) |
+| **Give codebase context** | `@workspace` | `@codebase` | Automatic (indexes repo) |
+| **Built-in shortcuts** | `/explain`, `/fix`, `/tests`, `/doc` | Built into Cascade flow | `/init`, built-in commands |
+| **Automation hooks** | — | — | Hooks (pre/post command scripts) |
+| **External tool integrations** | GitHub ecosystem | Built-in web search | MCP servers |
+
+> **Key insight**: Once you learn the core prompting skills (Modules 1–4), you're learning the same muscle regardless of tool. The tool-specific modules just teach you where to put things.
 
 ### How Each Exercise Works
 
 - **Concept** — a short explanation of the technique and why it matters.
 - **Bad → Good** — a side-by-side comparison so you can see the difference (where applicable).
-- **Your Turn** — a hands-on prompt you'll run in GitHub Copilot Chat.
+- **Your Turn** — a hands-on prompt you'll run in your AI tool.
 - **Challenge** — an optional stretch task to deepen your understanding.
 
 ---
@@ -1072,9 +1093,9 @@ Write a constraint set so tight that two different AI tools produce nearly ident
 
 ---
 
-# Module 5 — GitHub Copilot Power Features
+# Module 5 — GitHub Copilot
 
-> These exercises teach you how to get the most out of GitHub Copilot Chat — the tool your team uses daily.
+> **Do this module if you have access to GitHub Copilot.** These exercises teach you how to get the most out of Copilot Chat's unique features.
 
 ---
 
@@ -1225,13 +1246,320 @@ Compare the output of the same prompt **before** and **after** adding custom ins
 
 ---
 
-# Module 6 — Automating Client Work with Copilot
+# Module 6 — Windsurf (Cascade)
 
-> This is where everything comes together with a practical focus: **how to identify tasks in client projects that Copilot can help automate, and how to build the prompts to do it.**
+> **Skip this module if you don't have Windsurf yet.** Come back when your team gets access. Windsurf's Cascade can read files, search your codebase, and make edits directly — your prompts become action-oriented, not just question-oriented.
 
 ---
 
-## Exercise 27 — Identify Automatable Tasks
+## Exercise 27 — Codebase-Aware Prompting with Cascade
+
+### Concept
+Cascade has deep codebase awareness built in. Unlike tools where you manually reference files, Cascade can **read, search, and edit** your codebase autonomously. This means your prompts can be higher-level — describe the outcome, and Cascade figures out which files to touch.
+
+Key context references:
+- **`@file`** — reference a specific file by path
+- **`@codebase`** — give Cascade access to search the entire project
+- **`@web`** — let Cascade search the internet for documentation or solutions
+
+### Your Turn
+
+1. In Windsurf Chat, ask Cascade to explore your project:
+
+```
+@codebase Give me a brief summary of what this project does, the main
+technologies used, and the entry point file. List the top-level folder
+structure.
+```
+
+2. Ask it to find patterns across the codebase:
+
+```
+@codebase Find all the places in this project where we handle errors or
+exceptions. List each file and line number. Are we consistent in our
+error-handling approach? If not, describe the inconsistencies.
+```
+
+3. Ask it to take action (Cascade will propose changes for your approval):
+
+```
+@file:src/services/orderService.ts This function doesn't handle the case
+where the API returns a 404. Add error handling that throws a descriptive
+OrderNotFoundError. Don't change anything else in the file.
+```
+
+4. Combine codebase context with a template you built in Module 2:
+
+```
+@file:src/services/paymentService.ts
+
+GOAL: Review this file for security issues.
+CONTEXT: This service handles credit card tokenization via Stripe.
+FOCUS AREAS: Input validation, secret handling, error messages that might
+  leak internal details, missing authentication checks.
+OUTPUT FORMAT: Issues by severity (critical → minor) with line numbers
+  and suggested fixes.
+```
+
+### Key takeaway
+Cascade's strength is that prompts can be **action-oriented** — you describe what to change, and it reads, edits, and proposes the diff. Use `@codebase` for discovery and `@file` for targeted work.
+
+---
+
+## Exercise 28 — Windsurf Rules and Workflows
+
+### Concept
+Windsurf has two mechanisms for reusable instructions — they map directly to concepts you already know:
+
+| Windsurf Feature | What It Does | Equivalent To |
+|-----------------|-------------|---------------|
+| **Rules** (`.windsurf/rules/*.md`) | Always-on instructions included in every conversation | Copilot's `.github/copilot-instructions.md` |
+| **Workflows** (`.windsurf/workflows/*.md`) | Saved multi-step prompts triggered by `/name` | Copilot's prompt files, Claude Code skills |
+
+### Your Turn — Create a Rule
+
+1. Paste this into Windsurf Chat:
+
+```
+Write a Windsurf rules file (`.windsurf/rules/team-standards.md`) for a
+team that works with [YOUR TECH STACK]. The rule should tell Cascade to:
+
+- Always follow [YOUR CODING STANDARDS]
+- Use [YOUR PREFERRED PATTERNS]
+- Write tests using [YOUR TEST FRAMEWORK]
+- Never suggest [THINGS TO AVOID]
+
+Use the Windsurf rules format: start with a short description line, then
+the instructions as markdown. Keep it under 30 lines. Output only the
+file content.
+```
+
+2. Save the output to `.windsurf/rules/team-standards.md`.
+
+### Your Turn — Create a Workflow
+
+1. Paste this into Windsurf Chat:
+
+```
+Write a Windsurf workflow file (`.windsurf/workflows/review-code.md`) that,
+when I type `/review-code` in chat, does the following:
+
+1. Asks which file to review.
+2. Reads the file using @file.
+3. Reviews it for: error handling, performance, security, and readability.
+4. Lists issues by severity with suggested fixes.
+5. Offers to apply the fixes directly.
+
+Use the Windsurf workflow format with YAML frontmatter (name, description)
+followed by markdown steps. Output only the file content.
+```
+
+2. Save it and test by typing `/review-code` in a new Windsurf Chat.
+
+3. Now create a workflow for a task your team does frequently:
+
+```
+Write a Windsurf workflow for: [YOUR TASK — e.g., "generate unit tests for
+a service class"]. It should:
+
+1. [Step 1 — e.g., "Ask which file to test"]
+2. [Step 2 — e.g., "Read the file and identify public methods"]
+3. [Step 3 — e.g., "Generate tests using JUnit 5 and Mockito"]
+4. [Step 4 — e.g., "Write the test file next to the source file"]
+
+Use Windsurf workflow format with YAML frontmatter. Output only the file.
+```
+
+### Key takeaway
+Rules = "always do this" (set once, affects every conversation). Workflows = "do this when I ask" (triggered on demand with `/name`). Together they let you encode team standards **and** automate specific tasks.
+
+### Challenge
+Create 3 workflows for your team's most common tasks and commit them to `.windsurf/workflows/`. Have a teammate test them.
+
+---
+
+# Module 7 — Claude Code
+
+> **Skip this module if you don't have Claude Code yet.** Come back when your team gets access. Claude Code operates directly in your terminal with full codebase awareness, and its customization system (CLAUDE.md, skills, hooks) is the most programmable of the three tools.
+
+---
+
+## Exercise 29 — CLAUDE.md: Project Instructions
+
+### Concept
+`CLAUDE.md` is Claude Code's equivalent of project instructions. Place it at the root of your repo (or in any subfolder) and Claude Code reads it automatically at the start of every conversation.
+
+What makes it different:
+- **Hierarchical** — you can have a root `CLAUDE.md` plus folder-level ones (e.g., `src/api/CLAUDE.md`) that add context for that area of the codebase
+- **Automatically loaded** — no need to reference it; Claude reads it on startup
+- **Markdown format** — same format as everything else you've been writing
+
+### Your Turn
+
+1. Open Claude Code in your terminal and paste this prompt:
+
+```
+Help me write a CLAUDE.md file for the root of my project. Here's the info:
+
+- Project: [NAME — what it does in one sentence]
+- Stack: [languages, frameworks, versions]
+- Coding standards: [style guide, linter, formatter]
+- Test framework: [e.g., Jest, pytest, JUnit] with [coverage requirements]
+- Architecture: [e.g., monolith, microservices, monorepo — key patterns]
+- Common commands: [build, test, lint, deploy commands]
+- Things to avoid: [anti-patterns, deprecated APIs, etc.]
+
+Write it as a concise CLAUDE.md (under 50 lines). Use markdown headers to
+organize sections. Include a "Common Commands" section with the exact shell
+commands for building, testing, and linting. Output only the file content.
+```
+
+2. Save the output as `CLAUDE.md` in your repo root.
+
+3. **Test it**: Start a new Claude Code session in the repo and ask it to write some code. Check that it follows the standards you defined.
+
+4. (Optional) Create a subfolder-level CLAUDE.md:
+
+```
+Write a CLAUDE.md for the `src/api/` folder of my project. This folder
+contains [DESCRIPTION — e.g., "REST API controllers using Express.js"].
+Add instructions specific to this folder:
+- [e.g., "All endpoints must validate request body with Zod schemas"]
+- [e.g., "Use the ApiError class for error responses, never throw raw errors"]
+- [e.g., "Every new endpoint needs an integration test in __tests__/"]
+
+Keep it under 20 lines. Output only the file content.
+```
+
+### Key takeaway
+Think of CLAUDE.md as a briefing document for a new team member — what they need to know before touching code in this project. The hierarchical system lets you add specialized context where it matters.
+
+---
+
+## Exercise 30 — Skills: Reusable Slash Commands
+
+### Concept
+**Skills** in Claude Code are reusable prompt templates saved as markdown files. Once created, any team member can trigger them with a slash command (e.g., `/generate-tests`). They're the Claude Code equivalent of Windsurf workflows and Copilot prompt files.
+
+Skills are stored in:
+- **Project skills**: `.claude/skills/*.md` (shared with the team via git)
+- **Personal skills**: `~/.claude/skills/*.md` (only on your machine)
+
+Each skill file is a markdown document with instructions that Claude Code follows when you invoke it.
+
+### Your Turn
+
+1. Ask Claude Code to help you create a skill:
+
+```
+Create a Claude Code skill file (`.claude/skills/review-pr.md`) that,
+when invoked, does the following:
+
+1. Asks which branch or PR to review (or defaults to the current branch diff)
+2. Reads the changed files using git diff
+3. Reviews each file for:
+   - Bugs or logic errors
+   - Missing error handling
+   - Security issues
+   - Code style violations based on the project's CLAUDE.md
+4. Produces a summary organized by severity (critical → minor)
+5. Offers to generate fix suggestions for critical issues
+
+Write it as a markdown file with clear instructions. Include a frontmatter
+section with the skill name and description. Output only the file content.
+```
+
+2. Save and test: run `/review-pr` in Claude Code.
+
+3. Now create a skill for a task your team does frequently. Use this pattern:
+
+```
+Create a Claude Code skill (`.claude/skills/[SKILL-NAME].md`) that:
+
+1. [STEP 1 — what Claude should do first]
+2. [STEP 2 — what comes next]
+3. [STEP 3 — the main action]
+4. [STEP 4 — output or follow-up]
+
+Context:
+- This skill will be used for [TASK DESCRIPTION]
+- Our stack is [TECH STACK]
+- The output should follow [STANDARDS/FORMAT]
+
+Write it as a markdown skill file. Output only the file content.
+```
+
+### Key takeaway
+Skills turn your best prompts into one-command workflows the whole team can use. If you find yourself typing the same multi-step prompt more than twice, make it a skill.
+
+---
+
+## Exercise 31 — Hooks and MCP Servers
+
+### Concept
+Claude Code has two power features with no equivalent in Copilot or Windsurf:
+
+**Hooks** — scripts that run automatically before or after Claude Code actions:
+- `PreToolUse` — runs before Claude uses a tool (e.g., validate before writing a file)
+- `PostToolUse` — runs after a tool completes (e.g., auto-format after code generation)
+- `PreCommit` — runs before committing (e.g., run linter, check for secrets)
+
+**MCP Servers** — external tool integrations that give Claude Code new capabilities (database access, API calls, Jira integration, etc.)
+
+### Your Turn — Create a Hook
+
+1. Ask Claude Code:
+
+```
+Help me create a Claude Code hook that automatically runs our linter after
+any file is written or edited. The hook should:
+
+- Trigger: after any file write (PostToolUse for Write and Edit tools)
+- Action: run [YOUR LINT COMMAND — e.g., "npx eslint --fix"] on the
+  changed file
+- Only run on files matching [PATTERN — e.g., "*.ts", "*.tsx"]
+- If the linter finds errors, show them to Claude so it can fix them
+
+Show me the settings.json configuration for this hook and explain each field.
+```
+
+2. Review the configuration and add it to your `.claude/settings.json`.
+
+3. **Test it**: Ask Claude Code to write a function with intentionally sloppy formatting. The hook should auto-format it.
+
+### Your Turn — Understand MCP Servers
+
+1. Ask Claude Code:
+
+```
+Explain MCP (Model Context Protocol) servers in Claude Code. Specifically:
+1. What are they and what problem do they solve?
+2. Give me 3 practical examples of MCP servers a development team would use
+   (e.g., database, Jira, Slack).
+3. For one of those examples, show me what the configuration in
+   settings.json would look like.
+4. How does a team share MCP server configurations?
+
+Keep the explanation under 300 words. I'm a developer, not an AI researcher.
+```
+
+2. If your team uses a tool that has an MCP server (Jira, Linear, Postgres, etc.), try setting it up.
+
+### Key takeaway
+Hooks let you enforce team standards automatically — no discipline required. MCP servers extend what Claude Code can do beyond just reading code. Together, they make Claude Code the most customizable of the three tools.
+
+### Challenge
+Create a `PreCommit` hook that checks for hardcoded secrets (API keys, passwords) before allowing a commit.
+
+---
+
+# Module 8 — Automating Client Work
+
+> This is where everything comes together with a practical focus: **how to identify tasks in client projects that your AI tool can help automate, and how to build the prompts to do it.** These exercises work with any tool.
+
+---
+
+## Exercise 32 — Identify Automatable Tasks
 
 ### Concept
 Not every task is a good fit for Copilot. The best candidates are:
@@ -1276,14 +1604,14 @@ Add tasks specific to your client's industry (healthcare compliance checks, fina
 
 ---
 
-## Exercise 28 — Build a Client-Specific Prompt Template
+## Exercise 33 — Build a Client-Specific Prompt Template
 
 ### Concept
 A client-specific prompt template is just like the templates from Module 2, but tailored to a specific client's tech stack, patterns, and requirements. The goal: any developer on your team can fill it in and get output that matches the client's standards.
 
 ### Your Turn
 
-1. Pick one of the HIGH-rated tasks from Exercise 27. Paste this into Copilot Chat:
+1. Pick one of the HIGH-rated tasks from Exercise 32. Paste this into Copilot Chat:
 
 ```
 I need to create a reusable prompt template that my team can use in GitHub
@@ -1331,14 +1659,14 @@ Client-specific templates are your team's biggest time saver. Once a template pr
 
 ---
 
-## Exercise 29 — Test and Validate Your Client Prompt
+## Exercise 34 — Test and Validate Your Client Prompt
 
 ### Concept
 A prompt template isn't ready until you've tested it against **multiple real inputs** and verified the output is production-quality. This exercise walks you through a validation workflow.
 
 ### Your Turn
 
-1. Take the template you built in Exercise 28.
+1. Take the template you built in Exercise 33.
 
 2. Fill it in for **3 different inputs** from the same client project (e.g., 3 different service classes, 3 different API endpoints, 3 different bug reports).
 
@@ -1377,11 +1705,11 @@ A template that works for 1 input is a draft. A template that works for 3+ diver
 
 ---
 
-# Module 7 — Putting It All Together
+# Module 9 — Putting It All Together
 
 ---
 
-## Exercise 30 — End-to-End Challenge
+## Exercise 35 — End-to-End Challenge
 
 ### Concept
 This exercise combines everything you've learned. You'll take a real problem, use the right technique to solve it, and evaluate the quality of the result.
@@ -1403,12 +1731,12 @@ This exercise combines everything you've learned. You'll take a real problem, us
 | Code review | Code-review template (Ex. 8) + multi-persona (Ex. 22) |
 | Documentation | Documentation template (Ex. 9) + audience constraints (Ex. 3) |
 | Architecture decision | Multi-persona (Ex. 22) + constraint-based (Ex. 23) |
-| Client task automation | Client template (Ex. 28) + validation (Ex. 29) |
+| Client task automation | Client template (Ex. 33) + validation (Ex. 34) |
 | Not sure how to start | Meta-prompt (Ex. 11–20) to generate the prompt for you |
 
-3. **Build your prompt** using the matching template from Module 2 (or Module 6 for client work), enhanced with techniques from Modules 1 and 4.
+3. **Build your prompt** using the matching template from Module 2 (or Module 8 for client work), enhanced with techniques from Modules 1 and 4.
 
-4. **Run it** in Copilot Chat, using context references from Module 5 (`#file`, `#selection`, `@workspace`).
+4. **Run it** in your AI tool, using the tool-specific features from Modules 5–7.
 
 5. **Refine** with 2–3 follow-up messages.
 
@@ -1419,14 +1747,14 @@ This exercise combines everything you've learned. You'll take a real problem, us
 
 ---
 
-## Exercise 31 — Build a Team Prompt Library
+## Bonus — Build a Team Prompt Library
 
 ### Concept
 The most productive teams don't start from scratch every time — they maintain a **shared prompt library** that anyone can use. This includes both general templates and client-specific ones.
 
 ### Your Turn
 
-1. Paste this into Copilot Chat:
+1. Paste this into your AI tool's chat:
 
 ```
 I want to create a team prompt library stored in our repo under a `prompts/`
@@ -1473,10 +1801,18 @@ git push
 | **Multi-persona** | Architecture decisions, trade-off analysis |
 | **Constraint-based** | Team standards, repeatable outputs |
 | **Templates** | Any task the team does repeatedly |
-| **Client templates** | Automating repetitive client work with Copilot |
+| **Client templates** | Automating repetitive client work |
 | **Meta-prompt** | When you're not sure how to write the prompt at all |
-| **`#file` / `@workspace`** | Always — give Copilot real code context, don't paste |
-| **Custom instructions** | Set once per repo, enforces team standards automatically |
+| **Context references** | Always — give the AI real code context, don't paste |
+| **Project instructions** | Set once per repo, enforces team standards automatically |
+
+### Where to Put Things (By Tool)
+
+| What | Copilot | Windsurf | Claude Code |
+|------|---------|----------|-------------|
+| Team standards | `.github/copilot-instructions.md` | `.windsurf/rules/*.md` | `CLAUDE.md` |
+| Reusable prompts | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | `.claude/skills/*.md` |
+| Templates | `prompts/templates/*.md` | `prompts/templates/*.md` | `prompts/templates/*.md` |
 
 ---
 
@@ -1484,7 +1820,7 @@ git push
 
 - **Review `prompt-guide.md`** for a quick-reference of all patterns and techniques.
 - **Review `meta-prompt.md`** for a polished, ready-to-use meta-prompt you can compare yours against.
-- **Set up `.github/copilot-instructions.md`** for every active project.
+- **Set up project instructions** for every active project (whichever tool you use).
 - **Build client-specific templates** for your top 3 repetitive tasks and share them with the team.
 - **Practice daily** — the more you prompt, the faster you get.
 

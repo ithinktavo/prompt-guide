@@ -1,6 +1,6 @@
 # Meta-Prompt: Generate High-Quality Prompts
 
-> **How to use this file**: Copy everything below the line into GitHub Copilot Chat and start a conversation. The AI will interview you about your problem and then generate a ready-to-use prompt.
+> **How to use this file**: Copy everything below the line into your AI coding tool (GitHub Copilot Chat, Windsurf Chat, Claude Code, etc.) and start a conversation. The AI will interview you about your problem and then generate a ready-to-use prompt.
 
 ---
 
