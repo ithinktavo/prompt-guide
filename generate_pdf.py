@@ -14,6 +14,7 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle,
     KeepTogether, Flowable, Frame, PageTemplate, BaseDocTemplate
 )
+import hashlib
 from reportlab.lib import colors
 
 
@@ -519,8 +520,8 @@ def header_footer(canvas, doc):
 
 
 def cover_header_footer(canvas, doc):
-    """No header/footer on cover page."""
-    pass
+    """No header/footer on cover page, but show outline panel."""
+    canvas.showOutline()
 
 
 # ── Build PDF ─────────────────────────────────────────────────────
@@ -572,7 +573,7 @@ def build_cover(styles, avail_width):
 def build_toc(styles, avail_width):
     """Build a table of contents page."""
     flowables = []
-    flowables.append(Paragraph("Table of Contents", styles['H1']))
+    flowables.append(Paragraph("Table of Contents", styles['SectionTitle']))
     flowables.append(Spacer(1, 12))
 
     toc_items = [
@@ -601,11 +602,41 @@ def build_toc(styles, avail_width):
     return flowables
 
 
+class BookmarkedDocTemplate(BaseDocTemplate):
+    """Doc template that adds PDF outline bookmarks from heading-styled paragraphs."""
+
+    # Map style name → outline level (0 = top, deeper = higher numbers)
+    BOOKMARK_LEVELS = {
+        'SectionTitle': 0,
+        'H1': 1,
+        'H2': 2,
+    }
+
+    def afterFlowable(self, flowable):
+        if not isinstance(flowable, Paragraph):
+            return
+        style_name = flowable.style.name
+        level = self.BOOKMARK_LEVELS.get(style_name)
+        if level is None:
+            return
+
+        # Strip HTML tags from the text for the bookmark title
+        text = re.sub(r'<[^>]+>', '', flowable.getPlainText() or '')
+        text = text.strip()
+        if not text:
+            return
+
+        # Create a unique bookmark key
+        key = hashlib.md5(f'{text}-{self.page}-{level}'.encode()).hexdigest()[:12]
+        self.canv.bookmarkPage(key)
+        self.canv.addOutlineEntry(text, key, level=level, closed=(level >= 2))
+
+
 def main():
     styles = build_styles()
     avail_width = letter[0] - 2 * inch
 
-    doc = BaseDocTemplate(
+    doc = BookmarkedDocTemplate(
         OUTPUT_FILE,
         pagesize=letter,
         leftMargin=inch,
@@ -616,6 +647,7 @@ def main():
         author="Team",
         subject="AI Prompting for Developers",
     )
+
 
     # Page templates
     frame = Frame(
