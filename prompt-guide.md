@@ -143,7 +143,15 @@ CONSTRAINTS:
 - [Constraint 1]
 - [Constraint 2]
 OUTPUT FORMAT: [How the response should be structured]
+
+CLARIFYING QUESTIONS:
+If anything above is ambiguous or missing context, ask me 1–3 targeted
+questions BEFORE producing the output. Don't guess silently. When
+there's a genuine trade-off, present options with brief pros/cons and
+let me choose. State any assumptions you do make explicitly.
 ```
+
+> **Why the `CLARIFYING QUESTIONS` block?** Prompts without it force AI to guess when input is incomplete — and silent guesses produce subtly wrong output. Adding this block turns the interaction bidirectional: AI asks, you answer, you both converge on a correct understanding before it commits to work. **Include this block in every template you build.**
 
 ---
 
@@ -158,6 +166,10 @@ EXPECTED: [What should happen instead]
 ALREADY TRIED: [Previous attempts]
 CONSTRAINTS: [What the fix must not change]
 OUTPUT: Root-cause analysis, then minimal code fix.
+
+CLARIFYING QUESTIONS:
+If you're unsure about the root cause, the reproduction steps, or the
+intended behavior, ask me 1–3 questions before proposing a fix.
 ```
 
 ### Code Generation
@@ -168,6 +180,11 @@ INPUTS: [Parameters it receives]
 OUTPUTS: [What it returns]
 CONSTRAINTS: [Performance, standards, libraries]
 OUTPUT: Working code with inline comments.
+
+CLARIFYING QUESTIONS:
+If design choices are ambiguous (library A vs. B, sync vs. async,
+strict vs. lenient validation), present 2–3 options with brief
+pros/cons and let me choose before writing code.
 ```
 
 ### Code Review
@@ -176,6 +193,10 @@ GOAL: Review for [quality / performance / security]
 CODE: [Use #file or #selection reference]
 FOCUS AREAS: [Specific concerns]
 OUTPUT: Issues by severity (critical → minor) with fixes.
+
+CLARIFYING QUESTIONS:
+If context needed to judge severity is missing (is this hot path?
+user-facing? public API?), ask me up to 3 questions before reviewing.
 ```
 
 ### Documentation
@@ -185,6 +206,11 @@ AUDIENCE: [Junior dev / senior dev / non-technical]
 FORMAT: [Bullet list / paragraph / README / JSDoc]
 LENGTH: [Approximate scope]
 OUTPUT: Clear explanation the audience can follow.
+
+CLARIFYING QUESTIONS:
+If the audience's background or desired depth isn't clear, ask first.
+If there are multiple reasonable framings, propose 2 options and let
+me pick.
 ```
 
 ---

@@ -87,6 +87,11 @@ ERROR: [Paste the exact error message or describe the unexpected behavior]
 ALREADY TRIED: [What you or the team have already attempted]
 CONSTRAINTS: [Do not change X, must stay compatible with Y]
 OUTPUT: Provide a root-cause explanation, then a minimal fix with code.
+
+CLARIFYING QUESTIONS:
+If anything above is ambiguous or missing context, ask me 1–3 targeted
+questions BEFORE producing the fix. Don't guess silently. If you must
+make assumptions, state them explicitly so I can correct them.
 ```
 
 ### 12. Template: Code Generation
@@ -97,6 +102,12 @@ INPUTS: [What data or parameters it receives]
 OUTPUTS: [What it returns or produces]
 CONSTRAINTS: [Performance, style, libraries allowed]
 OUTPUT: Working code with brief inline comments.
+
+CLARIFYING QUESTIONS:
+If requirements are ambiguous or you see multiple reasonable designs,
+ask me 1–3 questions first. When a genuine trade-off exists
+(performance vs. readability, library A vs. B), present the options
+with brief pros/cons and let me choose before writing code.
 ```
 
 ### 13. Template: Code Review / Refactor
@@ -106,6 +117,12 @@ CODE:
 [Paste code here]
 FOCUS AREAS: [Specific concerns, e.g., error handling, readability]
 OUTPUT: List issues by severity (critical → minor), then suggest fixes.
+
+CLARIFYING QUESTIONS:
+If the code's purpose or constraints are unclear, ask me before
+critiquing. If there's context you'd need to judge severity accurately
+(e.g., "is this hot path?", "is this user-facing?"), ask up to 3
+questions first.
 ```
 
 ### 14. Template: Documentation / Explanation
@@ -114,11 +131,18 @@ GOAL: Explain [concept / function / architecture] for [audience level].
 CONTEXT: [Project or system it belongs to]
 CONSTRAINTS: [Length, format — e.g., "one paragraph" or "bullet list"]
 OUTPUT: Clear explanation a [junior dev / non-technical stakeholder] can follow.
+
+CLARIFYING QUESTIONS:
+If the audience's background or the desired depth isn't clear, ask me
+first. If there are multiple reasonable framings (analogy-based vs.
+technical-first, top-down vs. bottom-up), propose 2 options and let me
+pick.
 ```
 
 ### 15. How to Ask AI to *Generate* a Template for You
 - Prompt: "Create a reusable prompt template for [task type] that my team can fill in to get consistent results."
 - Walk through how to iterate on the template AI gives you
+- Always include a **CLARIFYING QUESTIONS** block in the template so AI dialogues with the user when inputs are ambiguous — don't let AI make silent assumptions
 
 > 📘 **Practice**: [Workbook](workbook.md) → Module 2, Exercises 6–10 (build bug-fix, code-gen, code-review, documentation, and custom templates)
 

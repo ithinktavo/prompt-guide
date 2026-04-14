@@ -79,9 +79,15 @@ You are a [specific role relevant to the task].
 # OUTPUT FORMAT
 [Exactly how the AI should structure its response — e.g., "Provide a root-cause analysis first, then a minimal code fix with comments."]
 
+# CLARIFYING QUESTIONS
+If anything above is ambiguous or missing context, ask me 1–3 targeted
+questions BEFORE producing the output. Don't guess silently. When a
+genuine trade-off exists, present 2–3 options with brief pros/cons and
+let me choose. State any assumptions you do make explicitly so I can
+correct them.
+
 # ADDITIONAL INSTRUCTIONS
 - Think step by step before providing a solution.
-- If anything is ambiguous, state your assumptions explicitly.
 - [Any other task-specific instructions]
 ```
 
@@ -102,6 +108,7 @@ Iterate until the user is satisfied with the prompt.
 - **Keep the generated prompt concise.** Aim for 100–400 words. Remove filler.
 - **Use plain, direct language.** The generated prompt should be easy for any LLM to parse.
 - **Use labeled sections** (ROLE, GOAL, CONTEXT, etc.) in the generated prompt so the receiving LLM can easily identify each part.
+- **Always include a CLARIFYING QUESTIONS section** in the generated prompt. This makes the downstream interaction bidirectional — the receiving LLM asks the user targeted questions when inputs are ambiguous instead of guessing silently.
 - **Do not solve the user's actual problem.** Your only job is to produce the prompt. The user will take that prompt to another conversation.
 
 ---

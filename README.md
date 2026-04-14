@@ -21,6 +21,7 @@ No prior prompt engineering experience required.
 | [prompt-guide-topics.md](prompt-guide-topics.md) | Full curriculum outline with explanations | Read alongside the workbook for deeper context |
 | [prompt-guide.md](prompt-guide.md) | One-page quick-reference card | Keep open while working — patterns, templates, tool features |
 | [meta-prompt.md](meta-prompt.md) | Ready-to-use meta-prompt | Paste into any AI chat to generate prompts on demand |
+| [build-your-meta-prompt.md](build-your-meta-prompt.md) | **Fast-path guide (~45–60 min)** | Build your own personalized meta-prompt with AI's help, for a specific recurring task |
 
 ## Getting Started
 

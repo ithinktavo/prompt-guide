@@ -355,6 +355,10 @@ Try adding "Think step by step" to 3 different types of prompts (debugging, arch
 
 > Now that you know the core techniques, you'll build **reusable templates** that anyone on the team can fill in and get consistent results — no prompt-engineering knowledge required.
 
+### One rule for every template in this module: **make it bidirectional**
+
+Every template you build in this module must end with a `CLARIFYING QUESTIONS` section. Without it, AI silently guesses whenever input is ambiguous — and guesses produce subtly wrong output. With it, AI asks you 1–3 targeted questions before committing to an answer, and the interaction feels like a conversation instead of a one-way command. Each exercise below asks AI to include this block.
+
 ---
 
 ## Exercise 6 — Build a Bug Fix Template
@@ -378,6 +382,9 @@ include these sections:
 - ALREADY TRIED: previous attempts that didn't work
 - CONSTRAINTS: things the fix must not change
 - OUTPUT FORMAT: what the AI's response should look like
+- CLARIFYING QUESTIONS: tell the AI that if anything above is ambiguous
+  or missing context, it must ask 1–3 targeted questions BEFORE
+  proposing a fix — not guess silently
 
 After the template, write a short example showing the template filled in for a
 real bug (e.g., a NullPointerException in a Spring Boot service).
@@ -388,6 +395,7 @@ Output ONLY the template and the filled-in example.
 2. Review the template. Check that:
    - [ ] Every section has a `[PLACEHOLDER]`
    - [ ] The output format section specifies root-cause analysis + code fix
+   - [ ] The **CLARIFYING QUESTIONS** section is present and makes the AI ask rather than assume
    - [ ] The example is realistic and complete
 
 3. **Save the template** in a file called `templates/bug-fix.md` in your repo.
@@ -419,6 +427,10 @@ include these sections with [PLACEHOLDER] values:
 - EDGE CASES: specific scenarios the code must handle
 - OUTPUT FORMAT: working code with inline comments, plus a brief explanation
   of design decisions
+- CLARIFYING QUESTIONS: tell the AI to ask 1–3 questions first when
+  design choices are ambiguous (library A vs. B, sync vs. async, strict
+  vs. lenient). When a real trade-off exists, the AI should present
+  options with brief pros/cons and let the user choose before writing code.
 
 Also include a filled-in example for: "Write a Python function that validates
 and parses a CSV upload, returning structured data or detailed error messages."
@@ -451,6 +463,9 @@ include:
 - KNOWN CONSTRAINTS: things that can't change (API contract, backward compat)
 - OUTPUT FORMAT: issues listed by severity (critical → minor), with suggested
   fixes and code snippets
+- CLARIFYING QUESTIONS: tell the AI to ask up to 3 questions when
+  context needed to judge severity is missing (is this hot path?
+  user-facing? public API?) — before critiquing.
 
 Include a filled-in example reviewing a REST controller for security issues.
 
@@ -481,6 +496,10 @@ Create a reusable prompt template for asking AI to write documentation. Include:
 - FORMAT: paragraph, bullet list, table, README structure, JSDoc/Javadoc, etc.
 - LENGTH: approximate word count or section count
 - TONE: technical, conversational, formal
+- CLARIFYING QUESTIONS: tell the AI to ask when the audience's
+  background or desired depth is unclear. When multiple reasonable
+  framings exist (analogy-first vs. technical-first, top-down vs.
+  bottom-up), propose 2 options and let the user pick.
 
 Include a filled-in example for: "Document the authentication flow for a new
 developer joining the team."
@@ -519,6 +538,10 @@ Requirements:
 - Include sections for: GOAL, CONTEXT, INPUTS, CONSTRAINTS, and OUTPUT FORMAT.
 - Add any task-specific sections that make sense (e.g., EDGE CASES for testing,
   SEVERITY for incidents).
+- Always end with a CLARIFYING QUESTIONS section that tells the AI to
+  ask 1–3 targeted questions before producing output when any input is
+  ambiguous, and to surface options-with-pros/cons when a real trade-off
+  exists. The goal is bidirectional interaction, not silent assumptions.
 - After the template, show it filled in with a realistic example.
 - Keep the template concise — someone should be able to fill it in under 2
   minutes.
