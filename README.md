@@ -4,6 +4,30 @@ A hands-on guide that teaches our team how to write effective prompts, build reu
 
 **Core concepts are tool-agnostic** — learn once, apply to any tool. Tool-specific modules cover GitHub Copilot, Windsurf, and Claude Code separately.
 
+## How AI Prompting Actually Works (the 60-Second Mental Model)
+
+Before any techniques, here's the underlying concept everything in this guide builds on.
+
+A **prompt** is just an instruction you give to an AI. Think of it like delegating a task to a brand-new colleague who has read everything ever written but knows nothing about *your* project, *your* codebase, *your* team's standards, or what "done" looks like *for you*. The AI is fast, knowledgeable, and willing — but it has zero context until you give it some.
+
+That single insight shapes every technique in this guide:
+
+| What you provide | Why it matters |
+|------------------|----------------|
+| **A clear goal** | Tells the colleague what "done" looks like — the most common reason AI output disappoints is that the goal was vague |
+| **Relevant context** | What project, what stack, what's been tried — without this the AI guesses (poorly) |
+| **Constraints** | Format, length, audience, what to avoid — anchors the output to your actual needs |
+| **Examples** (sometimes) | "Show me what good looks like" beats "explain what good looks like" every time |
+| **Permission to ask back** | When in doubt, the AI should question you — silent guesses produce wrong answers |
+
+Three concepts you'll encounter often:
+
+- **Prompt** — a single instruction you type into an AI chat
+- **Prompt template** — a fill-in-the-blank prompt your team reuses (so the same task gets handled the same way every time)
+- **Meta-prompt** — a prompt that *generates other prompts* — you build it once and it acts as a "prompt engineer" interviewing you to produce tailored prompts on demand
+
+Every module in this guide is a deeper dive into one of these. The skills compound: a good prompt becomes a good template, and a good template becomes part of a good meta-prompt. Once you have all three, you stop "writing prompts" and start *teaching AI how to write prompts for you* — that's the compound-interest skill.
+
 ## Who This Is For
 
 Developers on our team who want to:
@@ -25,10 +49,14 @@ No prior prompt engineering experience required.
 
 ## Getting Started
 
-1. **Open [workbook.md](workbook.md)** and start with Module 1
-2. Keep [prompt-guide.md](prompt-guide.md) open as a reference
+> **What is `workbook.md`?** It's the main learning material — a single markdown file in this same folder containing 35 numbered, hands-on exercises grouped into 9 modules. You read each exercise, paste the provided prompt into your AI tool's chat, and learn by doing. You can open it directly in GitHub, in VS Code, or in any markdown viewer. Plain text — no special tooling required.
+
+1. **Open [workbook.md](workbook.md)** (the file is in this folder) and start with Module 1
+2. Keep [prompt-guide.md](prompt-guide.md) open in another tab as a quick-reference card
 3. Work through exercises at your own pace — each module is self-contained
 4. **For tool-specific modules (5–7)**: do the one(s) that match the tool(s) you have access to, skip the rest
+
+If you'd rather read the whole thing as one polished, shareable document, open the generated PDF: `prompt-engineering-guide.pdf`.
 
 ### Prerequisites
 
@@ -55,7 +83,8 @@ No prior prompt engineering experience required.
 ├─ TOOL-SPECIFIC (do the modules for tools you have access to) ────
 │
 │  Module 5 — GitHub Copilot             (Ex. 24–26)  ~20 min
-│    @workspace, #file, slash commands, .github/copilot-instructions.md
+│    #file, #selection, slash commands, .github/copilot-instructions.md
+│    (workspace context is now implicit; was @workspace in older versions)
 │
 │  Module 6 — Windsurf                   (Ex. 27–28)  ~15 min
 │    ⚠️  Skip if you don't have Windsurf yet
@@ -84,7 +113,7 @@ The same ideas have different names in each tool:
 | **Reusable prompts** | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | `.claude/skills/*.md` |
 | **Trigger saved prompt** | `#<prompt-name>` | `/workflow-name` | `/skill-name` |
 | **File context** | `#file:path`, `#selection` | `@file` | Automatic |
-| **Codebase context** | `@workspace` | `@codebase` | Automatic |
+| **Codebase context** | Implicit (was `@workspace`) | `@codebase` | Automatic |
 | **Automation hooks** | — | — | Hooks (pre/post scripts) |
 
 ## Setting Up Your Team's Prompt Library

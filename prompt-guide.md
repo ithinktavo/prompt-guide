@@ -79,7 +79,7 @@ Write [content] with these constraints:
 | **Reusable prompts** | `.github/prompts/*.prompt.md` | `.windsurf/workflows/*.md` | `.claude/skills/*.md` |
 | **Trigger a saved prompt** | `#<prompt-name>` | `/workflow-name` | `/skill-name` |
 | **File context** | `#file:path`, `#selection` | `@file` | Automatic |
-| **Codebase context** | `@workspace` | `@codebase` | Automatic |
+| **Codebase context** | Implicit (was `@workspace`) | `@codebase` | Automatic |
 | **Built-in shortcuts** | `/explain`, `/fix`, `/tests`, `/doc` | Built into Cascade | Built-in commands |
 | **Automation hooks** | — | — | Hooks (pre/post scripts) |
 | **External integrations** | GitHub ecosystem | Web search | MCP servers |
@@ -90,7 +90,6 @@ Write [content] with these constraints:
 
 | Reference | What It Does |
 |-----------|-------------|
-| `@workspace` | Full repo context — codebase-wide questions |
 | `#file:<path>` | Reference a specific file |
 | `#selection` | Reference highlighted code in editor |
 | `/explain` | Explain selected code (add constraints after) |
@@ -99,6 +98,8 @@ Write [content] with these constraints:
 | `/doc` | Generate doc comments (add format after) |
 
 **Project instructions**: `.github/copilot-instructions.md` — included in every chat automatically.
+
+> **Note on workspace context**: Older Copilot versions used `@workspace` for repo-wide context. That prefix is no longer needed in current Copilot for VS Code — just ask repo-level questions and Copilot looks across the project automatically. Behavior of `#workspace` may vary by underlying model (GPT vs. Claude). Verify against current Copilot docs.
 
 ---
 

@@ -1,10 +1,27 @@
 # Build Your Own Meta-Prompt with AI
 
-> **What this is**: A focused, hands-on guide that shows you how to use AI (GitHub Copilot Chat) to help you build a **reusable prompt-builder** — a single prompt file you can hand back to AI anytime in the future, and it will produce tailored, high-quality prompt templates for your specific use cases and deliverables.
+> **What this is**: A focused, hands-on path that shows you how to use AI (GitHub Copilot Chat) to help you build a **reusable prompt-builder** — a single prompt file you can hand back to AI anytime in the future, and it will produce tailored, high-quality prompt templates for your specific use cases and deliverables.
 >
-> **Time**: ~45–60 minutes
+> **Time**: ~60–90 minutes
 >
 > **Prerequisite**: Access to GitHub Copilot Chat (or any AI chat tool).
+
+---
+
+## How This Section Relates to Module 3
+
+This section and **Module 3 of the Workbook** both teach you to build meta-prompts — but with different angles:
+
+| | Module 3 (Workbook) | This Section |
+|---|---|---|
+| **Approach** | Learn-by-building — you construct each piece (system instructions, clarifying questions, output template) | Use-case-driven — you pick one recurring task and tailor a meta-prompt to it |
+| **Output** | A generic meta-prompt that works for any task type | A specialized meta-prompt for one specific recurring task |
+| **Best for** | Understanding the architecture of a meta-prompt | Applying the architecture to a real, specific need |
+| **Format** | 10 short exercises | 6 longer steps |
+
+**Recommended order**: do Module 3 first (you'll understand every part), then come here to apply that knowledge to a real recurring task in your work.
+
+**In a hurry?** Skip Module 3 and start here. You'll build something useful even without the deep dive.
 
 ---
 
@@ -46,7 +63,7 @@ This guide teaches a **three-layer pattern** that compounds over time:
 
 ## How This Guide Works
 
-Six hands-on exercises. Each one you'll:
+Six hands-on steps. Each one you'll:
 
 1. **Read** a short explanation of what you're doing and why.
 2. **Paste** a prompt into Copilot Chat.
@@ -59,11 +76,11 @@ Before you start, create an empty file:
 touch my-meta-prompt.md
 ```
 
-Keep it open — you'll paste into it after each exercise.
+Keep it open — you'll paste into it after each step.
 
 ---
 
-## Exercise 1 — Define Your Target Use Case
+## Step 1 — Define Your Target Use Case
 
 ### Why start here
 Generic meta-prompts work, but **personalized ones work better**. Before you ask AI to help you build a meta-prompt, you need to know *what recurring task* you want to get better at automating.
@@ -116,11 +133,11 @@ SCOPE SUMMARY
 ```
 
 ### Save it
-Paste the scope summary at the top of `my-meta-prompt.md` as a comment block. You'll reference it in the next exercises.
+Paste the scope summary at the top of `my-meta-prompt.md` as a comment block. You'll reference it in the next steps.
 
 ---
 
-## Exercise 2 — Ask AI to Draft Your Meta-Prompt
+## Step 2 — Ask AI to Draft Your Meta-Prompt
 
 ### Why this works
 You just gave AI a scope summary. Now you're asking it to write the first draft of your meta-prompt based on that scope. AI is *much* better at writing prompts when it has concrete context than when asked to write generic ones.
@@ -171,14 +188,14 @@ markdown I can paste directly into my file.
 ```
 
 ### What you'll get
-A full meta-prompt, typically 200–400 lines of markdown, tailored to your use case. It won't be perfect yet — you'll fix it in later exercises.
+A full meta-prompt, typically 200–400 lines of markdown, tailored to your use case. It won't be perfect yet — you'll fix it in later steps.
 
 ### Save it
 Paste the full output into `my-meta-prompt.md` (under the scope summary comment).
 
 ---
 
-## Exercise 3 — Stress-Test Your Meta-Prompt
+## Step 3 — Stress-Test Your Meta-Prompt
 
 ### Why this matters
 A meta-prompt is only as good as its output. Before trusting it, you need to **run it against a real task** and see if the generated template is usable.
@@ -205,11 +222,11 @@ A meta-prompt is only as good as its output. Before trusting it, you need to **r
 
 **If everything passes**: you're ready for Exercise 4.
 
-**If something failed**: note exactly what went wrong. You'll fix it in the next exercise.
+**If something failed**: note exactly what went wrong. You'll fix it in the next step.
 
 ---
 
-## Exercise 4 — Ask AI to Diagnose and Fix Problems
+## Step 4 — Ask AI to Diagnose and Fix Problems
 
 ### Why this matters
 The fastest way to improve a meta-prompt is to show AI exactly where it failed and ask AI to patch it. Do not manually rewrite — let AI do the work.
@@ -256,7 +273,7 @@ Run Exercise 3 again in a new chat. Iterate until every item on the checklist pa
 
 ---
 
-## Exercise 5 — Add Your Team's Context
+## Step 5 — Add Your Team's Context
 
 ### Why this matters
 The base meta-prompt is generic. To make it truly powerful, you need to embed **your team's specific context** so every generated template inherits the right defaults.
@@ -309,7 +326,7 @@ variant — I'll save it as a separate file.
 
 ---
 
-## Exercise 6 — Operationalize It
+## Step 6 — Operationalize It
 
 ### Why this matters
 A meta-prompt sitting in a file on your laptop only helps you. Putting it where your team can use it — and where AI tools pick it up automatically — multiplies its value.
@@ -375,7 +392,7 @@ Save the output as `prompts/README.md`, commit, and share.
 
 ## You're Done — What You Now Have
 
-After these 6 exercises you have:
+After these 6 steps you have:
 
 1. **`my-meta-prompt.md`** — your personalized, tested, team-context-aware meta-prompt
 2. **A repeatable workflow**: paste meta-prompt → answer questions → get template → use template

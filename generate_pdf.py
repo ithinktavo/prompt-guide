@@ -55,12 +55,212 @@ AUTHOR_NAME = "Gustavo Andres"
 
 FILES_IN_ORDER = [
     ("README.md",                 "Introduction"),
-    ("prompt-guide-topics.md",    "Topic Outline"),
+    ("prompt-guide-topics.md",    "Curriculum at a Glance"),
     ("workbook.md",               "Hands-On Workbook"),
     ("build-your-meta-prompt.md", "Build Your Own Meta-Prompt"),
     ("prompt-guide.md",           "Quick Reference"),
     ("meta-prompt.md",            "Meta-Prompt File"),
+    ("practice-scenarios.md",     "Practice Scenarios"),
+    ("glossary.md",               "Glossary"),
 ]
+
+# ── PDF self-containment: rewrite cross-file references ───────────
+#
+# The source .md files cross-reference each other (so they work on GitHub).
+# When assembled into a single shareable PDF, those references must become
+# internal section pointers because the reader will only ever have the PDF.
+
+# Map source .md filenames to their PDF section names.
+LINK_MAP = {
+    'workbook.md':               'the **Hands-On Workbook** section',
+    'prompt-guide.md':           'the **Quick Reference** section',
+    'prompt-guide-topics.md':    'the **Curriculum at a Glance** section',
+    'meta-prompt.md':            'the **Meta-Prompt File** section',
+    'build-your-meta-prompt.md': 'the **Build Your Own Meta-Prompt** section',
+    'README.md':                 'the **Introduction** section',
+    'practice-scenarios.md':     'the **Practice Scenarios** section',
+    'glossary.md':               'the **Glossary** section',
+}
+
+# Per-file block rewrites: phrases that don't make sense in PDF context
+# need full sentence/paragraph rewrites, not just a link substitution.
+# These run BEFORE the generic link substitution.
+BLOCK_REPLACEMENTS = {
+    'README.md': [
+        # The "What's Inside" file table is meta about the source repo —
+        # replace with a PDF-aware "What's in this Guide" intro.
+        (
+            "## What's Inside\n\n"
+            "| File | What It Is | When to Use It |\n"
+            "|------|-----------|----------------|\n"
+            "| [workbook.md](workbook.md) | **35 hands-on exercises** across 9 modules | Start here — this is the main learning path (~3.5 hrs) |\n"
+            "| [prompt-guide-topics.md](prompt-guide-topics.md) | Full curriculum outline with explanations | Read alongside the workbook for deeper context |\n"
+            "| [prompt-guide.md](prompt-guide.md) | One-page quick-reference card | Keep open while working — patterns, templates, tool features |\n"
+            "| [meta-prompt.md](meta-prompt.md) | Ready-to-use meta-prompt | Paste into any AI chat to generate prompts on demand |\n"
+            "| [build-your-meta-prompt.md](build-your-meta-prompt.md) | **Fast-path guide (~45–60 min)** | Build your own personalized meta-prompt with AI's help, for a specific recurring task |\n",
+            "## What's in This Guide\n\n"
+            "This guide is organized into the following sections (see the Table of Contents to jump to any of them):\n\n"
+            "| Section | What It Covers | When to Use It |\n"
+            "|---------|----------------|----------------|\n"
+            "| **Hands-On Workbook** | 35 exercises across 9 modules | The main learning path (~3.5 hrs) |\n"
+            "| **Topic Outline** | Full curriculum at a glance | Skim first to see the lay of the land |\n"
+            "| **Quick Reference** | Patterns, templates, tool features in a few pages | Flip back to it as a cheat sheet |\n"
+            "| **Meta-Prompt File** | A ready-to-use meta-prompt | Copy-paste into any AI chat to generate prompts on demand |\n"
+            "| **Build Your Own Meta-Prompt** | Fast-path guide (~45–60 min) | Build a personalized meta-prompt with AI's help |\n"
+        ),
+        # The "What is workbook.md?" callout is now backwards for PDF readers.
+        (
+            "> **What is `workbook.md`?** It's the main learning material — a single markdown file in this same folder containing 35 numbered, hands-on exercises grouped into 9 modules. You read each exercise, paste the provided prompt into your AI tool's chat, and learn by doing. You can open it directly in GitHub, in VS Code, or in any markdown viewer. Plain text — no special tooling required.\n\n",
+            ""
+        ),
+        # Rewrite "Getting Started" steps for a PDF reader (no separate files to open).
+        (
+            "1. **Open [workbook.md](workbook.md)** (the file is in this folder) and start with Module 1\n"
+            "2. Keep [prompt-guide.md](prompt-guide.md) open in another tab as a quick-reference card\n"
+            "3. Work through exercises at your own pace — each module is self-contained\n"
+            "4. **For tool-specific modules (5–7)**: do the one(s) that match the tool(s) you have access to, skip the rest\n\n"
+            "If you'd rather read the whole thing as one polished, shareable document, open the generated PDF: `prompt-engineering-guide.pdf`.",
+            "1. Skim the **Topic Outline** section first to see the full curriculum at a glance\n"
+            "2. Work through the **Hands-On Workbook** section at your own pace — each module is self-contained\n"
+            "3. Treat the **Quick Reference** section as a cheat sheet — flip back to it as needed while practicing\n"
+            "4. **For tool-specific modules (5–7)**: do the one(s) that match the tool(s) you have access to, skip the rest"
+        ),
+        # Quick Wins references with .md links.
+        (
+            "1. **Set up project instructions** for your current project ([Ex. 26](workbook.md) for Copilot, [Ex. 28](workbook.md) for Windsurf, [Ex. 29](workbook.md) for Claude Code) — every conversation will automatically follow your team's standards\n"
+            "2. **Learn file references** ([Exercise 24](workbook.md)) — stop pasting code, start referencing it\n"
+            "3. **Skim the quick-reference card** ([prompt-guide.md](prompt-guide.md)) — the 6-step formula and template structures",
+            "1. **Set up project instructions** for your current project (Exercise 26 for Copilot, Exercise 28 for Windsurf, Exercise 29 for Claude Code, all in the Hands-On Workbook section) — every conversation will automatically follow your team's standards\n"
+            "2. **Learn file references** (Exercise 24 in the Hands-On Workbook section) — stop pasting code, start referencing it\n"
+            "3. **Skim the Quick Reference section** — the 6-step formula and template structures"
+        ),
+    ],
+    'workbook.md': [
+        # The "What's Next" section at the end references other source files.
+        (
+            "- **Review `prompt-guide.md`** for a quick-reference of all patterns and techniques.\n"
+            "- **Review `meta-prompt.md`** for a polished, ready-to-use meta-prompt you can compare yours against.",
+            "- **See the Quick Reference section** for a quick lookup of all patterns and techniques.\n"
+            "- **See the Meta-Prompt File section** for a polished, ready-to-use meta-prompt you can compare yours against."
+        ),
+        # End of Module 3, "Next Steps" referencing meta-prompt.md
+        (
+            "- **Review `meta-prompt.md`** in this repo for a polished reference implementation you can compare against.",
+            "- **See the Meta-Prompt File section** for a polished reference implementation you can compare against."
+        ),
+    ],
+    'build-your-meta-prompt.md': [
+        # The closing "Related files in this repo" section.
+        (
+            "**Related files in this repo:**\n"
+            "- [README.md](README.md) — overall navigation\n"
+            "- [workbook.md](workbook.md) — full 35-exercise curriculum (meta-prompts covered in Module 3)\n"
+            "- [meta-prompt.md](meta-prompt.md) — a polished, ready-to-use generic meta-prompt you can compare yours against\n"
+            "- [prompt-guide.md](prompt-guide.md) — one-page reference card with patterns and templates",
+            "**Related sections in this guide:**\n"
+            "- The **Hands-On Workbook** section — full 35-exercise curriculum (meta-prompts covered in Module 3)\n"
+            "- The **Meta-Prompt File** section — a polished, ready-to-use generic meta-prompt you can compare yours against\n"
+            "- The **Quick Reference** section — patterns and templates condensed"
+        ),
+        # The opening reference to the Complete Workbook
+        (
+            "If you've gone through the [Complete Workbook](workbook.md), you've seen the concept of meta-prompts in Module 3.",
+            "If you've gone through the **Hands-On Workbook** section, you've seen the concept of meta-prompts in Module 3.",
+        ),
+    ],
+    'prompt-guide-topics.md': [
+        # Module-by-module practice pointers — keep them informative without linking
+        (
+            "> Open the [Complete Workbook](workbook.md) and work through the exercises at your own pace. Each module is self-contained.",
+            "> Work through the exercises in the **Hands-On Workbook** section at your own pace. Each module is self-contained.",
+        ),
+        (
+            "This outline maps to a companion [workbook](workbook.md) with 35 hands-on exercises:",
+            "This outline maps to the **Hands-On Workbook** section, which contains 35 hands-on exercises:",
+        ),
+        (
+            "- See `meta-prompt.md` — a ready-to-use meta-prompt file the team can start with today",
+            "- See the **Meta-Prompt File** section — a ready-to-use meta-prompt file the team can start with today",
+        ),
+    ],
+    'prompt-guide.md': [
+        (
+            "Use alongside the [Workbook](workbook.md) for hands-on practice.",
+            "Use alongside the **Hands-On Workbook** section for hands-on practice.",
+        ),
+    ],
+}
+
+# Generic link patterns to rewrite *after* block replacements run.
+# These catch any remaining `[text](file.md)` references.
+import re as _re
+
+_PRACTICE_PATTERN = _re.compile(
+    r"\[Workbook\]\(workbook\.md\)\s*→\s*", flags=_re.IGNORECASE
+)
+
+
+def prepare_for_pdf(md_text: str, filename: str) -> str:
+    """Transform a source markdown file so it's self-contained for the PDF.
+
+    1. Apply file-specific block replacements (multi-line rewrites).
+    2. Replace 'Practice: [Workbook](workbook.md) → ...' with a PDF-friendly form.
+    3. Replace any remaining markdown links to known files with section names.
+    4. Replace bare references to known .md files with section names.
+    """
+    # Step 1: file-specific block replacements
+    for old, new in BLOCK_REPLACEMENTS.get(filename, []):
+        md_text = md_text.replace(old, new)
+
+    # Step 2: rewrite "📘 **Practice**: [Workbook](workbook.md) → Module X" lines
+    md_text = _PRACTICE_PATTERN.sub("See the Hands-On Workbook section, ", md_text)
+
+    # Step 3: rewrite any remaining markdown links targeting known files.
+    # Pattern: [link text](filename.md) — anchors and paths within are also handled.
+    def _link_sub(m):
+        text = m.group(1)
+        target = m.group(2)
+        # Strip any anchor (#section) for matching
+        target_file = target.split('#', 1)[0].strip()
+        if target_file in LINK_MAP:
+            return LINK_MAP[target_file]
+        # Unknown .md target — drop the link, keep the visible text
+        return text
+
+    md_text = _re.sub(
+        r"\[([^\]]+)\]\(([^)]+\.md(?:#[^)]*)?)\)",
+        _link_sub,
+        md_text,
+    )
+
+    # Step 4: bare references like "see workbook.md" or "review meta-prompt.md"
+    # (only outside code blocks — handle by line, skipping fenced code).
+    bare_replacements = {
+        "workbook.md":               "the Hands-On Workbook section",
+        "prompt-guide.md":           "the Quick Reference section",
+        "prompt-guide-topics.md":    "the Curriculum at a Glance section",
+        "meta-prompt.md":            "the Meta-Prompt File section",
+        "build-your-meta-prompt.md": "the Build Your Own Meta-Prompt section",
+        "practice-scenarios.md":     "the Practice Scenarios section",
+        "glossary.md":               "the Glossary section",
+    }
+
+    out_lines = []
+    in_code = False
+    for line in md_text.split('\n'):
+        if line.lstrip().startswith('```'):
+            in_code = not in_code
+            out_lines.append(line)
+            continue
+        if not in_code:
+            for src, dst in bare_replacements.items():
+                # Only replace when the filename appears as a standalone token
+                # (avoid touching things like ".github/copilot-instructions.md"
+                # or "templates/bug-fix.md" which are real, non-cross-reference paths).
+                pattern = r'(?<![\w/`.-])' + _re.escape(src) + r'(?![\w/`.-])'
+                line = _re.sub(pattern, dst, line)
+        out_lines.append(line)
+    return '\n'.join(out_lines)
 
 # ── Color Palette (modern, team-friendly) ─────────────────────────
 
@@ -929,7 +1129,7 @@ def build_cover(styles, avail_width):
         'Info', fontName='Helvetica', fontSize=10, leading=15,
         textColor=SLATE_700, alignment=TA_CENTER
     )
-    flows.append(Paragraph("6 Guides  \u2022  35+ Exercises  \u2022  ~3.5 Hours", info))
+    flows.append(Paragraph("8 Sections  \u2022  36 Exercises  \u2022  ~5\u20137 Hours", info))
     flows.append(Spacer(1, 4))
     flows.append(Paragraph(
         "Core concepts are tool-agnostic \u2014 learn once, apply anywhere.", info
@@ -1099,7 +1299,7 @@ def build_toc(styles):
     return flows
 
 
-def build_section_cover(num, title, filename, styles, avail_width):
+def build_section_cover(num, title, styles, avail_width):
     flows = []
     flows.append(Spacer(1, 1 * inch))
     flows.append(Paragraph(f"SECTION {num}", styles['SectionNumber']))
@@ -1107,12 +1307,6 @@ def build_section_cover(num, title, filename, styles, avail_width):
     flows.append(Paragraph(title, styles['SectionTitle']))
     flows.append(Spacer(1, 8))
     flows.append(AccentHR(avail_width * 0.35))
-    flows.append(Spacer(1, 10))
-    flows.append(Paragraph(
-        f'<i>Source: {filename}</i>',
-        ParagraphStyle('Src', fontName='Helvetica-Oblique', fontSize=9,
-                       leading=12, textColor=SLATE_500, alignment=TA_CENTER)
-    ))
     flows.append(PageBreak())
     return flows
 
@@ -1162,7 +1356,10 @@ def main():
             md_text = f.read()
 
         # Section cover page
-        story.extend(build_section_cover(idx + 1, section_title, filename, styles, avail_width))
+        story.extend(build_section_cover(idx + 1, section_title, styles, avail_width))
+
+        # Transform cross-file references so the PDF is fully self-contained
+        md_text = prepare_for_pdf(md_text, filename)
 
         # Content
         story.extend(md_to_flowables(md_text, avail_width, styles))
