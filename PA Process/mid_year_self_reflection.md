@@ -1,0 +1,32 @@
+# FY26 Mid-Year Self-Reflection — Gustavo Marrero
+## Copy/paste each section into the corresponding text box
+
+---
+
+## AREAS OF IMPACT
+
+This cycle I delivered two major platform migrations for Capital One's fraud detection infrastructure — the Java SpringBoot ECS-to-Lambda migration (now fully serving production traffic with the legacy service decommissioned) and the HashiCorp Vault to AWS Secrets Manager migration (live across Dev, QA, and Production). A third migration — Third Party ACH — completed its heavy engineering phase and is running in shadow mode in production with 9 Python rules converted to DMN, working toward the 99.99% decision-matching rate required for full authority. These deliverables directly contributed to restoring the client's confidence in our team and securing a one-year contract renewal — reversing what had been active discussions about terminating the engagement.
+
+On the people side, I lead a team of 4 developers with regular 1:1s, structured sprint processes, and career development guidance. The team went from zero completed deliverables to a sustained 25–30 story point sprint velocity. I also mentored my counselee Ivanelyz through the full promotion lifecycle — coaching her on priority framing, guiding her to collect feedback from her previous manager, building a data-driven promotion narrative, and representing her during the official performance call. She was promoted to Senior Analyst.
+
+On AI enablement, I co-founded the AI Coaches initiative with no formal budget or mandate. We enabled all 30 Accenture development teams at Capital One on VS Code + GitHub Copilot, I led the organization of a 3-day AI Bootcamp on my own time during Thanksgiving week (designing the curriculum, personally presenting on prompt engineering, and coordinating other AI Coaches to deliver the remaining sessions), and I identified and proposed the Python-to-DMN AI conversion POC directly applicable to our Watchtower migrations. Three AI Coach roles were sold to Capital One as a result — new revenue for Accenture. I was awarded the Capital One Divergent Award for this work and completed the Accenture Reinvention training with the Credly badge. I also organized local AABG Atlanta community events, bringing together colleagues across different engagements for networking and relationship building.
+
+---
+
+## BEHAVIOR AND COLLABORATION
+
+I inherited a team with no processes, no deliverables, and a client who had lost confidence in Accenture. I diagnosed the root causes — gaps in planning, story creation, and ownership — and designed a custom Agile framework with an epic-ownership model giving each developer end-to-end accountability. I established structured sprint planning, weekly status reporting, and quarterly client reviews to bring discipline and transparency to the engagement. This approach reflects how I operate: I identify root causes, build structured solutions, and create accountability through process — not micromanagement. When the Lambda migration turned out to be far more complex than the client expected, I raised scope and risk issues early, reframed expectations, and led the engineering solution to keep the delivery on track.
+
+My impact this cycle extended well beyond my immediate team. I helped enable 30 Accenture development teams on AI tooling, led a bootcamp that upskilled developers across the account, and co-built an initiative that resulted in 3 new roles sold to the client. I also actively contribute to talent acquisition — conducting technical interviews and helping identify strong candidates not just for my own team but for other teams across the account. I coached my counselee through an opaque promotion process, helped her collect stakeholder feedback, and advocated for her in the performance call — treating people development as a core part of my role, not something I do on the side. When a team member departed mid-engagement, I navigated the knowledge transfer and onboarded a replacement without disrupting delivery or team morale — her parting feedback was "best team I've ever been on."
+
+I adapt to ambiguity and take initiative without waiting for direction. The AI Coaches initiative had no budget, no mandate, and no precedent — I helped built it from scratch because I saw an opportunity to create value for the client and for Accenture. I proactively engage stakeholders at multiple levels, customizing my communication to the audience — technical detail with the team, business impact with the client, strategic narrative with leadership — and ensure that decisions are aligned with both project objectives and the client's best interest.
+
+
+---
+
+## DEVELOPMENT
+
+My goal is to continue growing into a leader who operates at scale — across delivery, people, and strategy. The upcoming work on the account will be the largest and most complex program I've managed, and I'm focused on sharpening my ability to coordinate parallel workstreams, align stakeholders across Accenture and the client, and drive delivery at scale.
+Technically, I'm building on the serverless, AWS security, and platform migration expertise I developed this cycle to lead the next phase of work with deeper architectural confidence. On the AI side, I'm transitioning AI proofs of concept from experimentation to production-applicable tooling — developing my ability to operationalize AI solutions within enterprise constraints, not just prototype them. I'm also currently studying for the AWS Generative AI Developer Professional certification to formalize and deepen my AI expertise.
+On the people side, I'm investing in my team's growth alongside my own. I'm embedding stronger documentation practices into our workflow so knowledge is shared by default, not trapped with individuals. I'm pursuing a promotion for one of my direct reports, continuing to develop my counselee at her new level, and looking for opportunities to connect both with broader networks across the account. I also want to continue growing the AABG Atlanta community into a more structured, sustainable local network.
+The thread across all of this is the same: I want to lead bigger, develop others, and create lasting impact beyond my immediate team.

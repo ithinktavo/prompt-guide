@@ -1,0 +1,132 @@
+FY 2025 ABCD Reflection
+
+Areas of Impact
+This performance cycle demonstrated exceptional technical delivery, proactive leadership, and significant career advancement through balanced execution of primary client work and extensive cross-team collaboration.Technical Excellence and Client Impact:Delivered critical serverless solutions for a major insurance client over a 3-year engagement, including automated AMI security scanning, Splunk onboarding automation, and EC2 state tracking with ServiceNow integration. These solutions strengthened client security posture, accelerated operational processes, and improved incident management through innovative API workarounds and technical problem-solving.Cross-Team Leadership and Knowledge Sharing:Extended support beyond primary responsibilities by implementing EKS security automation for another AABG team and creating comprehensive educational resources across multiple technology domains (AWS StepFunctions, Serverless, Golang, Java bootcamps). Supported talent acquisition through technical interviews for both Capital One and AIG, directly impacting team quality and client satisfaction.Career Advancement and Team Transformation:Successfully secured Technical Lead role at Capital One with 4 direct reports, achieving essential people management experience required for Manager promotion. In 1.5 months, transformed an underperforming team through systematic process improvements, achieving consistent 25-30 story point sprint velocity and restoring client confidence with feedback: "I have hope again in this team." Earned scope expansion to additional Nasdaq Verafin integration work within first month.Community Building and Development:Strengthened local AABG presence through organized team events and contributed to organizational capability through reusable assets and training materials. Actively pursuing Machine Learning certification and Udacity Generative AI nanodegree to expand expertise into emerging technologies critical for future client needs.
+Behaviors & Collaboration
+Proactive Leadership and Cross-Team Impact:Throughout this performance cycle, I've consistently demonstrated proactive leadership by identifying opportunities to add value beyond my immediate responsibilities. This was evident in my cross-team support initiatives, where I implemented the EKS security automation solution to help another AABG team meet their delivery deadline, and my extensive knowledge-sharing efforts including AWS StepFunctions presentations and comprehensive study guides that have been adopted across Capital One bootcamps. These actions reflect my commitment to AABG's collective success rather than just individual project delivery.Technical Leadership and Team Development:In my transition to Technical Lead, I demonstrated strong change management and diagnostic leadership by quickly identifying organizational gaps in my inherited team and implementing systematic process improvements. Rather than focusing solely on technical delivery, I prioritized building team ownership and accountability, which transformed both team performance and client relationships. The client feedback of "I have hope again in this team" reflects my ability to balance technical expertise with people development.Community Building and Collaboration:I've actively fostered collaboration through organizing local AABG team events, facilitating networking opportunities, and creating inclusive environments for knowledge sharing. My approach to collaboration extends beyond formal project work to building lasting relationships and community connections that strengthen our overall team dynamics and support structure.Adaptability and Client-Focused Problem Solving:My work consistently demonstrates adaptability in responding to evolving client needs and cross-team requests. The rapid scope expansion to support Nasdaq Verafin integration within my first month at the Capital One exemplifies my ability to build trust quickly and respond to emerging opportunities while maintaining excellence in my primary responsibilities.
+Development (Actions for Growth)
+My primary goal is advancing from Associate Manager to Manager level, leveraging the technical leadership experience gained through my current Tech Lead role. After 1.5 months of successfully leading a team transformation, I'm developing the people management capabilities necessary for broader management responsibilities including larger team oversight and strategic client relationship management.Having demonstrated early success in team transformation and process improvement, my next focus is scaling these capabilities to manage multiple teams and complex organizational dynamics. I'm developing systematic approaches for individual team member development and knowledge transfer that can be replicated across AABG engagements.For my current team of 4 developers, I'm implementing individual development plans that align their career goals with client needs, focusing on cloud-native architectures, and consulting skills around client communication and problem-solving.I'm actively pursuing Machine Learning certification and completing a Udacity nanodegree in Generative AI to expand beyond my serverless and cloud automation expertise into emerging technologies critical for client competitive advantage. This strategic upskilling positions me to identify and lead initiatives around intelligent automation, data-driven decision making, and AI integration within existing client systems. By developing expertise in both foundational machine learning and cutting-edge generative AI, I can provide forward-looking solutions and remain relevant as client needs evolve toward AI-powered business transformation.
+------
+Today is February 11, 2026.
+
+Capital One Bank (Project) Context (June 2025 - August 2025):
+Started as a tech lead role at Capital One in June 2025. I replaced the previous Tech Lead who the client requested to be removed. The team was in red status.
+Not even a single deliverable was completed and there was some doubt about the team's future and whether or not the contract would be extended.
+The contract was until December 2025.
+
+----------
+Capital One Related Priorities (Project) 
+Title: Get Tech Leadership Role and Team Turnaround (Marked as Completed August 01, 2025)
+
+Description: 
+Successfully transitioned to Technical Lead role at FinTech client with direct leadership of 4 developers, achieving the career advancement objective necessary for next level promotion. 
+This role provided essential people management experience while maintaining hands-on technical contribution across multiple client initiatives including fraud detection systems, cloud migration projects, and regulatory technology integrations.
+
+Key Impacts:
+Secured technical leadership role with direct management of 5-person development team.
+Identified and addressed critical planning and organizational gaps through systematic assessment.
+Implemented process improvements that transformed delivery consistency and team engagement.
+Achieved measurable results including consistent sprint velocity and restored client satisfaction.
+
+----------
+
+Capital One Context (August 2025 - December 2025):
+The client seemed to be more happy with the team and the work being done. I implemented new processes and improvements to improve the team's performance and satisfaction.
+Created a new Agile framework internally and better story system for the team to follow. This improved the team velocity and issue where stories were not being completed in a sprint so there could be carry overs.
+
+I made sure that each developer was responsible for their epic and that included being able to create the stories needed to complete the epic. 
+This allowed the team to be more autonomous and not to rely so much on the client to create the stories (which was a big issue and the client made it clear in internal feedback).
+
+My team name is Fraud Watchdogs and I was the Tech Lead for this team. Its composed of me the tech lead, Ana (senior developer), Moya (junior developer), Juquan (senior developer) and Arpita (junior developer) and recently in place of Arpita, we have Jerry (junior developer).
+
+In 2025 the main deliverables were:
+- Third Party ACH Migration Moving from Rules (9 rules) as an Engine (Watchtower OL) to Watchtower Platform.
+    - This was a big project that involved a lot of work and was the main priority for the team.
+    - As part of this process, python rules needed to be migrated or converted to DMN rules.
+    - One of the challenges here are the data elements and gathering and transforming the data that we need to use for the DMN rules.
+    - Since this is a service that makes a decision on ACH transactions, this service in the new platform needs to be analyzed closely and gather data comparing the legacy system with the determination of the new platform.
+- Migration of Java Springboot service on ECS to a Lambda function.
+    - This was a challenge because the client thought that it was going to be a simple migration but it was not. This was to the fact that they thought this would be a copy and paste of the Java Springboot code to the lambda.
+    - You need to tweak the code to make it work within the context of a Lambda function. Like for example the reactive code (returning responses before actually finishing processing), ephemeral storage, etc.
+- HashiCorp Vault Secrets Migration to AWS Secrets Manager.
+    - Goal is to remove dependency on HashiCorp Vault and move to AWS Secrets Manager.
+    - We had to create the current secrets in AWS Secrets Manager and then update the different code applications to use the new secrets manager. And we had to do this for Dev, QA and Prod environments.
+
+Additionally as part of being the Tech lead I am responsible for providing weekly status reports to the client and the Accenture team. I also need to provide Quarterly status reports to the client and the Accenture team. And to continue mentoring and guiding others and my team members.
+
+By the end of 2025, the team was in green status and the client was satisfied with the work and progress made.
+
+The lambda migration was finished, were were able to delete the ECS service, and lambda was serving production traffic.  The last remaining item is finalizing Splunk alerting. (I also worked on this effort and Juquan (another senior developer from my team))
+
+The Secrets migration is almost finished, we updated the code applications within our scope to read secrets from AWS Secrets Manager and we see from Vault that the for production are not being used based on last accessed date. We are investigating which application is using secrets from HashiCorp Vault in dev. Once that is identified, we will delete vault dev and qa and finish with production, but the heavy lifting is done.  (I worked on this effort and Juquan)
+
+Third Party ACH Migration most of the heavy lifting is done. We are analyzing mismatches between legacy system and new platform so that we can get signoff from Fraus Strategy team to start serving real traffic and being authoritative which means that the decision made in the new platfrom is the one that is going to be followed. After signoff, we will allow only 2% of the traffic to go to the new platform and we will monitor the results and validate post decision processing. If those are good, we will in a course of a day increment to 100%. After that, then there needs to be a decommissioning of the legacy system, which not sure if that would be our responsibility or the client's. (Ana and Moya 2 developers worked on this effort)
+
+Right before the contract ended, the client renewed the contract for another year. This was a big win for the team and the client and showcase that the sentiment towards the team changed and the client was satisfied with the work and progress made.
+
+One of the developers, Arpita, had to leave the team for personal reasons. Before leaving, she mentioned that this has been the best team she has ever been a part of and she was grateful for the experience and the opportunity to work with such a talented team. She also mentioned that she was sad to leave and that she will miss the team and the lead (me).
+
+For the new year 2026, we need to do another migration of Python rules to DMN and to Watchtower Platform. This time is the First Party Fraud App with around 60 rules to be migrated. Since its a bigger application, the idea is that this is going to be all hands on deck and we need to plan for it. I am relying on Ana (my senior developer and SME on this topic) to make the initial assessment and do initial onboarding to Watchtower Platform so that the team hits the ground running. I need to get up to speed with this so that I can help Ana. Hopefully this get easier after the initial assessment and onboarding is completed.
+
+
+Both Accenture and the client are big into AI and how we can use AI to improve our processes and deliverables. I have been working on a project with my delivery lead, Renan, and we created an informal team that we call the AI Coaches. 
+
+------
+AI Coaches Community Initiative:
+
+Who we are?
+
+We're a group of developers who love to tinker, learn, and stay ahead of the curve 
+We came together around a shared interest: figuring out how AI tools can make us better at what we do 
+What started as curiosity became a mission — learn it, use it, share it
+
+What we are doing?
+We are Building expertise in Capital One-approved AI tools: GitHub Copilot, Gemini, Claude, Windsurf 
+Coaching development teams on how to leverage AI for day-to-day work 
+Running hands-on training (including a 3-day AI Bootcamp covering prompt engineering, RAG, MCP, AI agents, and more) 
+Developing POCs that apply AI tools directly to client work — proving value with real deliverables
+
+
+Wins
+
+Enabled all 30 Accenture dev teams on VS Code + GitHub Copilot 
+Secured funding for AI tool access for our coaches 
+Delivered 3-day AI Bootcamp during Thanksgiving week (on our own time) 
+Presented Python-to-DMN POC to Capital One — demonstrated how AI can accelerate upcoming deliverables Positioned Accenture as AI-ready for emerging opportunities at the client
+2 roles were sold to Capital One, with the main purpose of building and supporting AI initiatives in Capital One, including coaching others on how to use AI tools.
+
+
+At the end of the day, our goal is simple: accelerate delivery using AI, and demonstrate that Accenture has the talent and AI expertise to lead
+
+
+Delivered a 3-day AI Bootcamp during Thanksgiving week (outside project work) covering Prompt Engineering, Spec Driven Dev, Agents, and more.
+
+
+Because of all of my efforts, my delivery lead Renan gave me a shoutout in one of the Capital One's Townhall meeting and was awarded the Divergent Award.
+
+🎉 Congratulations, Gustavo! 🎉
+
+You were nominated for the Capital One Account Divergent Award— and we couldn’t be more thrilled to recognize you!
+
+A little bit more about the Divergent Award:
+Honors a trailblazer who challenges the status quo, embraces new ideas, seeks diverse perspectives, and drives change with bold, efficient, and innovative thinking.
+
+You were nominated by: Renan Cavero (my delivery lead)
+
+Your hard work, creativity, and impact truly shine. Thanks for everything you contribute — today, we celebrate you! ✨
+
+With appreciation,
+The Capital One People Team
+
+--------
+
+Capital One and AI initiatives.
+
+With the big push for AI, and given that the client will need to continue migrating rules to DMN, I started working on a Python to DMN POC to show the client how AI can help them with this effort, by using templated prompts and prompting techniques.  The generated DMN show promise and Ana has mentioned that she sees this as helping the team to be more productive. This is still in progress, we have some limitations within Capital One because not all of the AI tools are approved to be used by contractors. However the client is trying to push for an exemption because they see the value of this.
+
+
+Additionally, eventually from Watchtower Platform, they will need to migrate to another rules tool that they are calling Rules Lab.  The issue is that the current translated DMNs are not compatible with Rules Lab. Senior leaders from the client are concerned about this, because they dont want to have to do another big migration soon after the current one. Renan has tasked me to start investigating Rules Lab and see if there are ways to import the created DMNs into Rules Lab and or if there are ways that we can pursue so that migrate exisiting DMNs to Rules Lab and potentially avoid another big migration. And potentially use this opportunity of First Party Fraud App to test and or start migrating to Rules Lab. This is more recent and we are still trying to align everyone on this task. But the idea is to help the client avoid a future big problem.
+
+
+
+
